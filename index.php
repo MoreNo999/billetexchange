@@ -13,6 +13,7 @@
                     <input type="password" id="pass" name="pass" placeholder="Enter Password"><br>
                     <input type="submit" id="submit" value="login">
                     <a href="#">Forgot Password?</a>
+                    <a href="./new_user.php" class="button">Create Account</a>                 
                     <img src="./img/content/USAF_logo.png" width="300" height="200">
                     
                 </form>

@@ -18,7 +18,6 @@
                     <p>Phone number</p>
                     <input type="password" id="pass" name="pass" placeholder="Enter Phone Number (optional)">
                     <input type="submit" id="submit" value="Create User">
-                    
                 </form>
             </div>
 

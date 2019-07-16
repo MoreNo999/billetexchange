@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Billet Trading New Post</title>
-        <link rel="stylesheet" type="text/css" href="./css/postbillet.css">
-        <body>
-            <div class="postbillet">
+<?php
+    session_start();
+    require_once("scripts/functions.php");
+    // load up your config file
+    require_once("config.php");
+     
+    require_once(TEMPLATES_PATH . "/header.php");
+
+    if (!isset($_SESSION['id'])){
+        header('Location: index.php');
+    }
+?>
+<div id="container">
+    <div id="content">
+		<link rel="stylesheet" type="text/css" href="./css/postbillet.css?ver=3">
+        <div class="postbillet">
                 <h1>Create your billet post:</h1>
                 <form action="./scripts/CreatePost.php" method="POST">
                     <p>In-AFSC</p>
@@ -14,7 +23,7 @@
                     <p>In-SEI</p>
                     <input type="text" id="In-SEI" name="In-SEI" placeholder="Enter SEI of personnel you would like to receive. (Optional)">
                     <p>In-SkillLvl</p>
-                    <input type="text" id="In-SkillLvl" name="In-SkillLvl" placeholder="Enter Skill Level of personnel you would like to receive. (Optional)">
+                    <input type="text" id="In-Skill Level" name="In-Skill Level" placeholder="Enter Skill Level of personnel you would like to receive. (Optional)">
                     <p>Out-AFSC</p>
                     <input type="text" id="Out-AFSC" name="Out-AFSC" placeholder="Enter AFSC of billet you are willing to trade.">
                     <p>Out-Rank</p>
@@ -22,15 +31,19 @@
                     <p>Out-SEI</p>
                     <input type="text" id="Out-SEI" name="Out-SEI" placeholder="Enter SEI of billet you are willing to trade. (Optional)">
 					<p>Out-SkillLvl</p>
-                    <input type="text" id="Out-SkillLvl" name="Out-SkillLvl" placeholder="Enter Skill Level of billet you are willing to trade. (Optional)">
+                    <input type="text" id="Out-Skill Level" name="Out-Skill Level" placeholder="Enter Skill Level of billet you are willing to trade. (Optional)">
 					<p>Position#</p>
-                    <input type="text" id="Position#" name="Position#" placeholder="Enter Position Number of billet. (Optional)">
+                    <input type="text" id="Position Number" name="Position Number" placeholder="Enter Position Number of billet. (Optional)">
 					<p>Description</p>
                     <input type="text" id="description" name="description" placeholder="Enter a description of the duties for the billet you are posting.">
 					<input type="submit" id="submit" value="Create Billet Post">                                  
                 </form>
             </div>
-
-        </body>
-    </head>
-</html>
+    </div>
+    <?php
+        require_once(TEMPLATES_PATH . "/rightPanel.php");
+    ?>
+</div>
+<?php
+    require_once(TEMPLATES_PATH . "/footer.php");
+?>

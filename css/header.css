@@ -1,0 +1,13 @@
+table, th, td {
+    border: 2px solid black;
+    background-color: grey;
+  }
+a{
+    color: black;
+}
+
+.header {
+    width: 1920px;
+    height: 100px;
+    background: rgb(46, 75, 129);
+}

@@ -4,7 +4,7 @@
         <title>Billet Trading Login</title>
         <link rel="stylesheet" type="text/css" href="./css/style.css">
         <body>
-            <div class="loginbox">
+            <div class="rcorners">
                 <h1>Login Here</h1>
                 <form action="./scripts/login.php" method="POST">
                     <p>Username</p>

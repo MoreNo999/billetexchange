@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once("functions.php");
 require_once("../config.php");
 $lDbName = $config["db"]["db1"]["dbname"];
@@ -34,7 +35,7 @@ if ($stmt = $con->prepare('SELECT UserID, password FROM Accounts WHERE Username 
             // Create sessions so we know the user is logged in, they basically act like cookies but remember the data on the server.
             session_regenerate_id();
             $_SESSION['loggedin'] = TRUE;
-            $_SESSION['name'] = $_POST['username'];
+            $_SESSION['name'] = $_POST['user'];
             $_SESSION['id'] = $id;
             header('Location: ../home.php');
         } else {

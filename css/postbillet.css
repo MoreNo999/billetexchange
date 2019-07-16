@@ -16,14 +16,12 @@ h1{
 
 .postbillet{
     border-radius: 10px;
-    width: 650px;
+    width: 600px;
     height: 900px;
     background: rgb(71, 71, 71);
     color: #fff;
-    top: 75%;
-    left: 25%;
+    left: 33%;
     position: relative;
-    transform: translate(85%,-50%);
     box-sizing: border-box;
     padding: 50px 30px;
     

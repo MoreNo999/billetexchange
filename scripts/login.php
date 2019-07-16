@@ -1,5 +1,5 @@
 <?php 
-require("functions.php");
+require("scripts/functions.php");
 require("config.php");
 $lDbName = $db["db1"]["dbname"];
 $lDbUser = $db["db1"]["dbname"];

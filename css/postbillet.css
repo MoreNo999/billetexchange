@@ -1,0 +1,71 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: url(../img/content/cool_cyber.jpg);
+    background-size: 100%;
+    background-position-y: -13ch;
+    font-family: sans-serif;
+}
+
+h1{
+    margin: 0;
+    padding: 0 0 30px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.postbillet{
+    border-radius: 10px;
+    width: 600px;
+    height: 900px;
+    background: rgb(71, 71, 71);
+    color: #fff;
+    left: 33%;
+    position: relative;
+    box-sizing: border-box;
+    padding: 50px 30px;
+    
+}
+
+.postbillet p{
+    margin: 0;
+    font-weight: bold;
+}
+
+.postbillet input{
+    width: 90%;
+    margin-bottom: 20px;
+}
+
+.postbillet input[type="text"], input[type="password"]{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.postbillet input[type="submit"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: rgb(44, 81, 202);
+    font-size: 20px;
+    border-radius: 20px;
+    color: rgb(255, 255, 255);
+}
+
+.postbillet input[type="submit"]:hover{
+    cursor: pointer;
+    background: rgb(0, 0, 0);
+    color: #fff;
+}
+
+.postbillet img{
+    transform: translate(6%, 15%)
+}
+
+
+    

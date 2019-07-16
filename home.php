@@ -10,6 +10,7 @@
         header('Location: index.php');
     }
 ?>
+<link rel="stylesheet" type="text/css" href="../../css/home.css">
 <div id="container">
     <div id="content">
         <!-- content -->

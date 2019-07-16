@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['id']))
+{
+    header('Location: ../home.php');
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,6 +24,12 @@
                     <img src="./img/content/USAF_logo.png" width="300" height="200">
                     
                 </form>
+                <?php
+                if (isset($_SESSION['errorMessage'])){
+                    echo $_SESSION['errorMessage'];
+                    $_SESSION['errorMessage'] = null;
+                }
+                ?>
             </div>
 
         </body>

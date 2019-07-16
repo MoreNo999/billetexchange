@@ -10,7 +10,7 @@
                     <p>Username</p>
                     <input type="text" id="user" name="user" required placeholder="Enter Username ">
                     <p>Password</p>
-                    <input type="password" id="pass" name="pass" required placeholder="Enter Password">
+                    <input type="password" id="pass" name="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required placeholder="Enter Password">
                     <p>Email Address</p>
                     <input type="text" id="email" name="email" required placeholder="Enter .mil Email Address">
                     <p>Unit</p>

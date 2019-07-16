@@ -19,7 +19,7 @@ if (!isset($_POST['user'], $_POST['pass'])) {
 }
 
 //Prepare our sql statement, nullify SQL Injection
-if ($stmt = $con->prepare('SELECT UserID, password FROM Accounts WHERE Username = ?')) {
+if ($stmt = $con->prepare('SELECT UserID, passwd FROM Accounts WHERE Username = ?')) {
 	// Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 	$stmt->bind_param('s', $_POST['user']);
 	$stmt->execute();

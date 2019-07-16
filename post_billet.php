@@ -12,7 +12,7 @@
 ?>
 <div id="container">
     <div id="content">
-		<link rel="stylesheet" type="text/css" href="./css/postbillet.css?ver=2">
+		<link rel="stylesheet" type="text/css" href="./css/postbillet.css?ver=3">
         <div class="postbillet">
                 <h1>Create your billet post:</h1>
                 <form action="./scripts/CreatePost.php" method="POST">

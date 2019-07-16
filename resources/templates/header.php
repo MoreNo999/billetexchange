@@ -6,14 +6,14 @@
             <link rel="stylesheet" type="text/css" href="../../css/header.css">
     </head>
     
-    <body>
-            <div class="header">
-                    <h1>Billet Trading Home</h1>
-                    <div class="logout">
-                        <form action="../../scripts/logout.php" method="POST">
-                                <input type="submit" id="submit" value="logout">
-                        </form>
-                    </div>
+    <body>    
+        <div class="header">
+                        <h1>Billet Trading Home</h1>
+                        <div class="logout">
+                                <form action="../../scripts/logout.php" method="POST">
+                                        <input type="submit" id="submit" value="logout">
+                                </form>
+                        </div>    
                     <table style="width:100%">
                             <tr>
                               <th><a href="#">Home</a></th>

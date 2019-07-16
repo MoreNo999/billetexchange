@@ -16,7 +16,7 @@
                         </div>    
                     <table style="width:100%">
                             <tr>
-                              <th><a href="#">Home</a></th>
+                              <th><a href="../../home.php">Home</a></th>
                               <th><a href="#">Browse</a></th>
                               <th><a href="../../post_billet.php">Post</a></th>
                               <th><a href="#">Matches</a></th>

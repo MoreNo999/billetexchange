@@ -18,7 +18,7 @@
                             <tr>
                               <th><a href="#">Home</a></th>
                               <th><a href="#">Browse</a></th>
-                              <th><a href="#">Post</a></th>
+                              <th><a href="../../post_billet.php">Post</a></th>
                               <th><a href="#">Matches</a></th>
                               <th><a href="#">My Account</a></th>
                             </tr>

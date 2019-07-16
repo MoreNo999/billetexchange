@@ -38,10 +38,10 @@ if ($stmt = $con->prepare('SELECT UserID, password FROM Accounts WHERE Username 
             $_SESSION['id'] = $id;
             header('Location: ../home.php');
         } else {
-            echo 'Incorrect username/password!';
+            $_SESSION['errorMessage'] = 'Incorrect username/password!';
         }
     } else {
-        echo 'Incorrect username/password!';
+        $_SESSION['errorMessage'] = 'Incorrect username/password!';
     }
     $stmt->close();
 }

@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Billet Trading New User</title>
-        <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css?ver=2">
         <body>
             <div class="loginbox">
                 <h1>Create your account</h1>

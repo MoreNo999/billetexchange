@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Billet Trading Login</title>
-        <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css?ver=1">
         <body>
             <div class="loginbox">
                 <h1>Login Here</h1>

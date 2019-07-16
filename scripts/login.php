@@ -1,6 +1,6 @@
 <?php 
-require("scripts/functions.php");
-require("config.php");
+require_once("scripts/functions.php");
+require_once("config.php");
 $lDbName = $db["db1"]["dbname"];
 $lDbUser = $db["db1"]["dbname"];
 $lDbPass = $db["db1"]["dbname"];

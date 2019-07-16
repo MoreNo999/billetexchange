@@ -3,7 +3,7 @@
     <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
             <title>Billet Trading</title>
-            <link rel="stylesheet" type="text/css" href="../../css/header.css?ver=4.1">
+            <link rel="stylesheet" type="text/css" href="../../css/header.css?ver=4.2">
     </head>
     
     <body>    

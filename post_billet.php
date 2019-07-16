@@ -2,9 +2,9 @@
 <html>
     <head>
         <title>Billet Trading New Post</title>
-        <link rel="stylesheet" type="text/css" href="./css/style.css?ver=123">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
         <body>
-            <div class="New Billet Posting Box">
+            <div class="loginbox">
                 <h1>Create your billet post:</h1>
                 <form action="./scripts/CreatePost.php" method="POST">
                     <p>In-AFSC</p>

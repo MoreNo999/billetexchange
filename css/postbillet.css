@@ -16,13 +16,13 @@ h1{
 
 .postbillet{
     border-radius: 10px;
-    width: 600px;
+    width: 650px;
     height: 900px;
     background: rgb(71, 71, 71);
     color: #fff;
-    top: 50%;
-    left: 50%;
-    position: absolute;
+    top: 75%;
+    left: 25%;
+    position: relative;
     transform: translate(85%,-50%);
     box-sizing: border-box;
     padding: 50px 30px;
@@ -56,12 +56,12 @@ h1{
     background: rgb(44, 81, 202);
     font-size: 20px;
     border-radius: 20px;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
 }
 
 .postbillet input[type="submit"]:hover{
     cursor: pointer;
-    background: rgb(10, 73, 247);
+    background: rgb(0, 0, 0);
     color: #fff;
 }
 

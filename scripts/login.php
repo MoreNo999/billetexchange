@@ -44,6 +44,7 @@ if ($stmt = $con->prepare('SELECT UserID, password FROM Accounts WHERE Username 
         $_SESSION['errorMessage'] = 'Incorrect username/password!';
     }
     $stmt->close();
+    header('Location: ../index.php');
 }
 else{
     echo "StatementBuildBorked";

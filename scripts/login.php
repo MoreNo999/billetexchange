@@ -36,7 +36,7 @@ if ($stmt = $con->prepare('SELECT UserID, password FROM Accounts WHERE Username 
             $_SESSION['loggedin'] = TRUE;
             $_SESSION['name'] = $_POST['username'];
             $_SESSION['id'] = $id;
-            echo 'Welcome ' . $_SESSION['name'] . '!';
+            header('Location: ../home.php');
         } else {
             echo 'Incorrect username/password!';
         }
@@ -44,7 +44,6 @@ if ($stmt = $con->prepare('SELECT UserID, password FROM Accounts WHERE Username 
         echo 'Incorrect username/password!';
     }
     $stmt->close();
-    header('Location: ../home.php');
 }
 else{
     echo "StatementBuildBorked";

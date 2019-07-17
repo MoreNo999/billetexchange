@@ -12,7 +12,7 @@ if ( mysqli_connect_errno() ) {
     //There was a connection error....Die....
     die ('Failed to connect to MySQL' . mysqli_connect_error());
 }
-echo var_dump($_POST);
+
 //We are connected now, so lets check for post data
 if (!isset($_POST['user'], $_POST['pass'], $_POST['email'], $_POST['unit'])) {
     die ('Improper Form');

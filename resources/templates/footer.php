@@ -1,7 +1,7 @@
 <html>
 <head>
 </head>
-<link rel="stylesheet" type="text/css" href="./css/footer.css?ver=8">
+<link rel="stylesheet" type="text/css" href="./css/footer.css?ver=10">
 <body>
 <div class="footer">
 	<table>
@@ -12,7 +12,7 @@
 		<th><a href="my_account.php" title="My Account">My Account</a></th>
 	  </tr>
 	</table>
-		<h1> © MurkSec 2019 </h1>
+		<h55> © MurkSec 2019 </h55>
 </div>
 </body>
 </html>

@@ -1,39 +1,48 @@
+.footer{
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
+}
 
-h1{
+.footer h1{
 	text-align: center;	
     padding: 10px;
     color: #C6C7C8;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	
 
 }
 
-table {
+.footer table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-td, th {
+.footer td, th {
   text-align: center;
   padding: 10px;
 
 }
 
-a:link {
+.footer a:link {
   color: white;
   background-color: transparent;
   text-decoration: none;
 }
-a:visited {
+.footer a:visited {
   color: #04AFF9;
   background-color: transparent;
   text-decoration: none;
 }
-a:hover {
+.footer a:hover {
   color: #C6C7C8;
   background-color: transparent;
   text-decoration: underline;
 }
-a:active {
+.footer a:active {
   color: yellow;
   background-color: transparent;
   text-decoration: underline;

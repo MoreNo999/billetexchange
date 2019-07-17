@@ -3,7 +3,7 @@
 </head>
 <link rel="stylesheet" type="text/css" href="./css/footer.css">
 <body>
-
+<div class="footer">
 <table>
   <tr>
     <th><a href="home.php" title="Home Page">Home</a></th>

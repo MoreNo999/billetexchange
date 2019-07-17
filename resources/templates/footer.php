@@ -1,48 +1,7 @@
 <html>
 <head>
-<style>
-
-h1{
-	text-align: center;	
-    padding: 10px;
-    color: #C6C7C8;
-
-}
-
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  text-align: center;
-  padding: 10px;
-
-}
-
-a:link {
-  color: white;
-  background-color: transparent;
-  text-decoration: none;
-}
-a:visited {
-  color: #04AFF9;
-  background-color: transparent;
-  text-decoration: none;
-}
-a:hover {
-  color: #C6C7C8;
-  background-color: transparent;
-  text-decoration: underline;
-}
-a:active {
-  color: yellow;
-  background-color: transparent;
-  text-decoration: underline;
-}
-</style>
 </head>
+<link rel="stylesheet" type="text/css" href="./css/footer.css">
 <body>
 
 <table>
@@ -53,6 +12,6 @@ a:active {
     <th><a href="my_account.php" title="My Account">My Account</a></th>
   </tr>
 </table>
-    <h1> © MurkSec 2019 </h3>
+    <h1> © MurkSec 2019 </h1>
 </body>
 </html>

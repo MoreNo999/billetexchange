@@ -34,7 +34,7 @@ class SQLConnectionManager{
 }
 
 
-function GetBilletPosts($con, $userid, $number = 5, $first = 0, $status = 1){
+function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
     //Prepare our sql statement, nullify SQL Injection
@@ -134,4 +134,56 @@ function UpdateSessionUserProfileData($pPostData){
     }
 }
 
+
+function GetDashboardCards($columns=4){
+    $data = GetBilletPosts($_SESSION['id'],99,0,1);
+    $currentRow = 0;
+    $currentColumn = 0;
+    $cardCount = 0;
+    echo '<div class="dashboard-cards">';
+        for ($item = 0; $item < count($data); $item++){
+            echo '  <div class="row">';
+            for($it = 0; $it < $columns; $it++){
+                echo '      <div class="column">';
+                for ($cc = $it; $cc < count($data);$cc+=4){
+                    $outputVar = "<h2> <a href='./view_post.php?Card=" . $cardCount . "'>View Post</a></h2></br>";
+                    $outputVar .= "<table style='border-left: 1px;'>";
+
+                    $outputVar .= "<tr>";
+                    $outputVar .= "<th>Position #</th><th>" . $data[$cardCount]["PositionNumber"] . "</th>";
+                    $outputVar .= "<th>Timestamp</th><th>" . $data[$cardCount]["DatePosted"] . "</th>";
+                    $outputVar .= "</tr>";
+
+                    $outputVar .= "<tr>";
+                    $outputVar .= "<th>Out AFSC</th><th>" . $data[$cardCount]["OutAFSC"] . "</th>";
+                    $outputVar .= "<th>In AFSC</th><th>" . $data[$cardCount]["InAFSC"] . "</th>";
+                    $outputVar .= "</tr>";
+
+                    $outputVar .= "<tr>";
+                    $outputVar .= "<th>Out Rank</th><th>" . $data[$cardCount]["OutRank"] . "</th>";
+                    $outputVar .= "<th>In Rank</th><th>" . $data[$cardCount]["InRank"] . "</th>";
+                    $outputVar .= "</tr>";
+
+                    $outputVar .= "<tr>";
+                    $outputVar .= "<th>Out SEI</th><th>" . $data[$cardCount]["OutSEI"] . "</th>";
+                    $outputVar .= "<th>In SEI</th><th>" . $data[$cardCount]["InSEI"] . "</th>";
+                    $outputVar .= "</tr>";
+
+                    $outputVar .= "<tr>";
+                    $outputVar .= "<th>Out Level</th><th>" . $data[$cardCount]["OutSkillLevel"] . "</th>";
+                    $outputVar .= "<th>In Level</th><th>" . $data[$cardCount]["InSkillLevel"] . "</th>";
+                    $outputVar .= "</tr>";
+
+                    
+                    $outputVar .= "</table>";
+                    echo '          <div class="card"><p>' . $outputVar .'</p></div>';
+                    $cardCount++;
+                    $item++;
+                }
+                echo '      </div>';
+            }
+            echo '  </div>';
+        }    
+    echo '</div>';
+}
 ?>

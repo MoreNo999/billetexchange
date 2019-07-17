@@ -24,17 +24,6 @@
 
 }
 
-.footer h55 {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	background-color: transparent;
-	color: #C6C7C8;
-	text-align: center;
-	font-size: 8px;
-	padding: 10px;
-}
 .footer a:link {
   color: #04AFF9;
   background-color: transparent;

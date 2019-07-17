@@ -1,54 +1,10 @@
-html,body{overflow-x: hidden;}
-
-table, th, td {
-    border: 2px solid black;
-    background-color: grey;
-  }
-
-  a{
-    color: black;
-}
-
-.header {
+body{
+    margin: 0;
+    padding: 0;
+    background: url(../../img/content/usaf_wallpaper.jpg);
     width: 100%;
-    height: 100%;
-    background: rgb(46, 75, 129);
-    transform: translateY(-25%);
-}
-
-.button{
-    background:    #3d85c6;
-    background:    linear-gradient(#3d85c6, #073763);
-    border-radius: 5px;
-    padding:       5px 25px;
-    color:         #ffffff;
-    display:       inline-block;
-    font:          normal bold 20px/1 "Calibri", sans-serif;
-    text-align:    center;
-    text-shadow:   1px 1px #000000;
-}
-
-.button:hover{
-    cursor: pointer;
-    background:    #0372f1;
-    background:    linear-gradient(#0372f1, #022f58);
-    border-radius: 5px;
-    padding:       5px 25px;
-    color:         #ffffff;
-    display:       inline-block;
-    font:          normal bold 20px/1 "Calibri", sans-serif;
-    text-align:    center;
-    text-shadow:   1px 1px #000000;
-}
-
-.button_row{
-    padding-left: 10%;
-    padding-top: 0%;
-    transform: translateY(-2.3em);
-}
-
-.logout{
-    transform: translate(110em,-3em);
-    padding: 0%;
-    z-index: 100;
+    height: auto;
+    background-position-y: -13ch;
+    font-family: sans-serif;
+    background-repeat: no-repeat;
 }

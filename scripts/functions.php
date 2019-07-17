@@ -101,8 +101,37 @@ function GetSessionUserProfileData(){
 
 }
 
-function SetSessionUserProfileData(){
+//Expects postdata to be sent by parameter for use.  Doesnt Update Password or Username.
+function UpdateSessionUserProfileData($pPostData){
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
 
+    if (!isset($_SESSION['id'])){
+        die ('USER NOT LOGGED IN');
+    }
+
+    //Prepare our sql statement, nullify SQL Injection
+    if ($stmt = $con->prepare("UPDATE Accounts SET Email=?, Unit=?, PhoneNumber=?, FirstName=?, LastName=?, Rank=?, PASCode=? WHERE UserID=?")) {
+        // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
+
+        $stmt->bind_param('sssssssi', $pPostData['email'], $pPostData['unit'], $pPostData['phone'], $pPostData['firstName'], $pPostData['lastName'], $pPostData['rank'], $pPostData['PASCode'], $_SESSION['id']);
+
+        if ($stmt->execute()){
+            $_SESSION['errorMessage'] = 'Account Updated!';
+            header('Location: ../home.php');
+        }
+        else{
+            $_SESSION['errorMessage'] = 'Account Update Failed!';
+            header('Location: ../home.php');
+        }
+        $_SESSION['errorMessage'] = 'Account Update Failed!';
+        header('Location: ../home.php');
+        $stmt->close();
+    }
+    else{
+        $_SESSION['errorMessage'] = 'Account Update Failed!';
+        header('Location: ../home.php');
+    }
 }
 
 ?>

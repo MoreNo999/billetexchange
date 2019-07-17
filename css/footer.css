@@ -23,11 +23,6 @@
 }
 
 .footer a:link {
-  color: white;
-  background-color: transparent;
-  text-decoration: none;
-}
-.footer a:visited {
   color: #04AFF9;
   background-color: transparent;
   text-decoration: none;

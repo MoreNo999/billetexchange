@@ -1,24 +1,19 @@
-.footer{
-	position: fixed;
-	width: 100%;
-	bottom: 0px;
-}
-
-.footer h1{
-	text-align: center;	
-    padding: 10px;
-    color: #C6C7C8;
-	position: fixed;
-	bottom: 0px;
-	width: 100%;
-	
-
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: transparent;
+   color: #C6C7C8;
+   text-align: center;
+   font-size: 14px;
 }
 
 .footer table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  text-align: center;
 }
 
 .footer td, th {

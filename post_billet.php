@@ -11,15 +11,14 @@
     }
 ?>
 <div id="container">
-    <body style="background-image: url(/img/content/usaf_wallpaper.jpg);">
     <div id="content">
-<<<<<<< HEAD
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" type="text/css" href="/css/postbillet.css?ver=4.1">
         <div class="w3-container w3-blue w3-mobile">
                     <h2>New Billet</h2>
                 </div>
-                 <div style="width:40%; margin-left: 30%; margin-top: 3%; background-color: grey;" class="w3-mobile">
-                <form class="w3-container" action="./scripts/CreatePost.php" method="POST">
+                 <div style="width:40%; margin-left: 30%; margin-top: 3%; background-color: grey;" class="w3-mobile w3-round w3-modal-content w3-animate-zoom">
+                <form class="w3-container w3-round" action="./scripts/CreatePost.php" method="POST">
                     
                     
                     <label class="w3-text-black"><b>In-AFSC</b></label>
@@ -98,37 +97,6 @@
                     <input class="w3-btn w3-blue-grey" type="submit" id="submit" value="Create Billet Post">
                 </form> 
                 </div>   
-</body>
-=======
-		<link rel="stylesheet" type="text/css" href="./css/postbillet.css?ver=3">
-        <div class="postbillet">
-                <h1>Create your billet post:</h1>
-                <form action="./scripts/CreatePost.php" method="POST">
-                    <p>In-AFSC</p>
-                    <input type="text" id="InAFSC" name="InAFSC" placeholder="Enter AFSC of personnel you would like to receive.">
-                    <p>In-Rank</p>
-                    <input type="text" id="InRank" name="InRank" placeholder="Enter Rank of personnel you would like to receive.">
-                    <p>In-SEI</p>
-                    <input type="text" id="InSEI" name="InSEI" placeholder="Enter SEI of personnel you would like to receive. (Optional)">
-                    <p>In-SkillLvl</p>
-                    <input type="text" id="InSkillLevel" name="InSkillLevel" placeholder="Enter Skill Level of personnel you would like to receive. (Optional)">
-                    <p>Out-AFSC</p>
-                    <input type="text" id="OutAFSC" name="OutAFSC" placeholder="Enter AFSC of billet you are willing to trade.">
-                    <p>Out-Rank</p>
-                    <input type="text" id="OutRank" name="OutRank" placeholder="Enter Rank of billet you are willing to trade."><br>
-                    <p>Out-SEI</p>
-                    <input type="text" id="OutSEI" name="OutSEI" placeholder="Enter SEI of billet you are willing to trade. (Optional)">
-					<p>Out-SkillLvl</p>
-                    <input type="text" id="OutSkillLevel" name="OutSkillLevel" placeholder="Enter Skill Level of billet you are willing to trade. (Optional)">
-					<p>Position#</p>
-                    <input type="text" id="PositionNumber" name="PositionNumber" placeholder="Enter Position Number of billet. (Optional)">
-					<p>Description</p>
-                    <input type="text" id="Description" name="Description" placeholder="Enter a description of the duties for the billet you are posting.">
-					<input type="submit" id="submit" value="Create Billet Post">                                  
-                </form>
-            </div>
-    </div>
->>>>>>> c1fe4eb09efc56215dc6a6d268e7b7ce4ea7ec70
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");
     ?>

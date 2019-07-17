@@ -13,7 +13,9 @@
 <link rel="stylesheet" type="text/css" href="../../css/home.css">
 <div id="container">
     <div id="content">
-        <!-- content -->
+    
+
+
     </div>
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");

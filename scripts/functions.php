@@ -337,7 +337,7 @@ function GetDashboardCards($columns=3){
 
                     
                     $outputVar .= "</table>";
-                    echo '          <div class="card"><p>' . $outputVar .'</p></div>';
+                    echo '          <div class="card w3-round-xxlarge w3-animate-zoom"><p>' . $outputVar .'</p></div>';
                     $cardCount++;
                     $item++;
                 }

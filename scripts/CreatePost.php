@@ -37,7 +37,7 @@ $Status = 1;
 //Prepare our sql statement, nullify SQL Injection
 if ($stmt = $con->prepare("INSERT INTO BilletEntry(OwnerID, OutAFSC, OutRank, OutSEI, OutSkillLevel, InAFSC, InRank, InSEI, InSkillLevel, PositionNumber, Description, Views, Clicks, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
 	// Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
-    $stmt->bind_param('isssisssissiii', $OwnerID, $OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $Views, $Clicks, $Status);
+    $stmt->bind_param('isssisssissiii', $OwnerID, htmlspecialchars($OutAFSC, ENT_NOQUOTES), htmlspecialchars($OutRank, ENT_NOQUOTES), htmlspecialchars($OutSEI, ENT_NOQUOTES), $OutSkillLevel, htmlspecialchars($InAFSC, ENT_NOQUOTES), htmlspecialchars($InRank, ENT_NOQUOTES), htmlspecialchars($InSEI, ENT_NOQUOTES), $InSkillLevel, htmlspecialchars($PositionNumber, ENT_NOQUOTES), htmlspecialchars($Description, ENT_NOQUOTES), $Views, $Clicks, $Status);
     if ($stmt->execute()){
         $_SESSION['errorMessage'] = 'Post Created!';
         header('Location: ../home.php');

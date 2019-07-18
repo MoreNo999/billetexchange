@@ -301,12 +301,12 @@ function GetDashboardCards($columns=3){
     $currentRow = 0;
     $currentColumn = 0;
     $cardCount = 0;
-    echo '<div class="dashboard-cards">';
+    echo '<div class="dashboard-cards w3-container">';
         for ($item = 0; $item < count($data); $item++){
-            echo '  <div class="row">';
+            echo '  <div class="row w3-container w3-cell">';
             for($it = 0; $it < $columns; $it++){
                 echo '      <div class="column">';
-                for ($cc = $it; $cc < count($data);$cc+=4){
+                for ($cc = $it; $cc < count($data);$cc+=12){
                     $outputVar = "<h2> <a href='./view_post.php?Card=" . $cardCount . "'>View Post</a></h2></br>";
                     $outputVar .= "<table style='border-left: 1px;'>";
 
@@ -337,7 +337,11 @@ function GetDashboardCards($columns=3){
 
                     
                     $outputVar .= "</table>";
-                    echo '          <div class="card w3-round-xxlarge w3-animate-zoom"><p>' . $outputVar .'</p></div>';
+                    if ($data[$cardCount] == ""){
+                        $cardCount++;
+                        break;
+                    }
+                    echo '          <div class="card w3-round-xxlarge w3-animate-zoom w3-cell"><p>' . $outputVar .'</p></div>';
                     $cardCount++;
                     $item++;
                 }

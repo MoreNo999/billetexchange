@@ -12,7 +12,7 @@ if ( mysqli_connect_errno() ) {
     //There was a connection error....Die....
     die ('Failed to connect to MySQL' . mysqli_connect_error());
 }
-echo var_dump($_POST);
+
 //We are connected now, so lets check for post data
 if (!isset($_POST['user'], $_POST['pass'], $_POST['email'], $_POST['unit'])) {
     die ('Improper Form');
@@ -23,10 +23,10 @@ if ($stmt = $con->prepare("INSERT INTO Accounts(Username, Passwd, Email, Unit, P
     $password = password_hash($_POST['pass'], PASSWORD_DEFAULT);
     if (isset($_POST['phone'])){
         $_SESSION['errorMessage'] = 'P=Y';
-        $stmt->bind_param('sssss', $_POST['user'], $password, $_POST['email'], $_POST['unit'], $_POST['phone']);
+        $stmt->bind_param('sssss', htmlspecialchars($_POST['user'], ENT_NOQUOTES), $password, htmlspecialchars($_POST['email'],ENT_NOQUOTES), htmlspecialchars($_POST['unit'], ENT_NOQUOTES), htmlspecialchars($_POST['phone'], ENT_NOQUOTES));
     }
     else {
-        $stmt->bind_param('sssss', $_POST['user'], $password, $_POST['email'], $_POST['unit'], "empty");
+        $stmt->bind_param('sssss', htmlspecialchars($_POST['user'], ENT_NOQUOTES), $password, htmlspecialchars($_POST['email'],ENT_NOQUOTES), htmlspecialchars($_POST['unit'], ENT_NOQUOTES), "empty");
     }
     $stmt->execute();
     $_SESSION['errorMessage'] = 'Account Created!';

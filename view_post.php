@@ -10,14 +10,14 @@
         header('Location: index.php');
     }
 ?>
-<link rel="stylesheet" type="text/css" href="../../css/home.css?ver=5">
+<link rel="stylesheet" type="text/css" href="/css/background.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div id="container">
     <div id="content">
         <div class="w3-container w3-blue w3-mobile">
-            <h2>Dashboard</h2>
+            <h2>Browse All</h2>
         </div>
-        <?php GetDashboardCards(3); ?>
+        <?php //FUNCTION HERE ?>
     </div>
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");

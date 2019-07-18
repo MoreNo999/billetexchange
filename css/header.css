@@ -1,25 +1,10 @@
-html,body{overflow-x: hidden;}
-
-table, th, td {
-    border: 2px solid black;
-    background-color: grey;
-  }
-
-  a{
-    color: black;
-}
-
-.header {
+body{
+    margin: 0;
+    padding: 0;
+    background: url(../../img/content/usaf_wallpaper.jpg);
     width: 100%;
-    height: 100%;
-    background: rgb(46, 75, 129);
-    transform: translateY(-16%);
-}
-
-.logout {
-    color: black;
-    font-size: 20px;
-    position: relative;
-    transform: translate(93%,100%);
-    top: -50px;
+    height: auto;
+    background-position-y: -13ch;
+    font-family: sans-serif;
+    background-repeat: no-repeat;
 }

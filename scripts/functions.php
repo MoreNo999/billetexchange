@@ -223,7 +223,7 @@ function UpdateSessionUserProfileData($pPostData){
     if ($stmt = $con->prepare("UPDATE Accounts SET Email=?, Unit=?, PhoneNumber=?, FirstName=?, LastName=?, Rank=?, PASCode=? WHERE UserID=?")) {
         // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 
-        $stmt->bind_param('sssssssi', $pPostData['email'], $pPostData['unit'], $pPostData['phone'], $pPostData['firstName'], $pPostData['lastName'], $pPostData['rank'], $pPostData['PASCode'], $_SESSION['id']);
+        $stmt->bind_param('sssssssi', htmlspecialchars($pPostData['email'], ENT_NOQUOTES), htmlspecialchars($pPostData['unit'], ENT_NOQUOTES), htmlspecialchars($pPostData['phone'], ENT_NOQUOTES), htmlspecialchars($pPostData['firstName'], ENT_NOQUOTES), htmlspecialchars($pPostData['lastName'], ENT_NOQUOTES), htmlspecialchars($pPostData['rank'], ENT_NOQUOTES), htmlspecialchars($pPostData['PASCode'], ENT_NOQUOTES), $_SESSION['id']);
 
         if ($stmt->execute()){
             $_SESSION['errorMessage'] = 'Account Updated!';

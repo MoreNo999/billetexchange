@@ -226,20 +226,16 @@ function UpdateSessionUserProfileData($pPostData){
         $stmt->bind_param('sssssssi', htmlspecialchars($pPostData['email'], ENT_NOQUOTES), htmlspecialchars($pPostData['unit'], ENT_NOQUOTES), htmlspecialchars($pPostData['phone'], ENT_NOQUOTES), htmlspecialchars($pPostData['firstName'], ENT_NOQUOTES), htmlspecialchars($pPostData['lastName'], ENT_NOQUOTES), htmlspecialchars($pPostData['rank'], ENT_NOQUOTES), htmlspecialchars($pPostData['PASCode'], ENT_NOQUOTES), $_SESSION['id']);
 
         if ($stmt->execute()){
-            $_SESSION['errorMessage'] = 'Account Updated!';
-            header('Location: ../home.php');
+            return True;
         }
         else{
-            $_SESSION['errorMessage'] = 'Account Update Failed!';
-            header('Location: ../home.php');
+            return False;            
         }
-        $_SESSION['errorMessage'] = 'Account Update Failed!';
-        header('Location: ../home.php');
+        return False;
         $stmt->close();
     }
     else{
-        $_SESSION['errorMessage'] = 'Account Update Failed!';
-        header('Location: ../home.php');
+        return False;
     }
 }
 
@@ -304,9 +300,9 @@ function GetDashboardCards($columns=3){
     echo '<div class="dashboard-cards w3-container">';
         for ($item = 0; $item < count($data); $item++){
             echo '  <div class="row w3-container w3-cell">';
-            for($it = 0; $it < $columns; $it++){
+            for($cc = $it; $cc < count($data);$cc+=$columns){
                 echo '      <div class="column">';
-                for ($cc = $it; $cc < count($data);$cc+=12){
+                for ($it = 0; $it < $columns; $it++){
                     $outputVar = "<h2> <a href='./view_post.php?Card=" . $cardCount . "'>View Post</a></h2></br>";
                     $outputVar .= "<table style='border-left: 1px;'>";
 

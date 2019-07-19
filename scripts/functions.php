@@ -96,6 +96,30 @@ function GetAllBilletPosts($number = 5, $first = 0, $status = 1){
     $stmt->close();
 }
 
+function GetSingleBilletPost($id){
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
+    //Prepare our sql statement, nullify SQL Injection
+    if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE ID = ?')) {
+        // Bind parameters (s = string, i = int, b = blob, etc)
+        $stmt->bind_param('i',  $id);
+        $stmt->execute();
+        // Store the result so we can check if the account exists in the database.
+        $stmt->store_result();
+        if ($stmt->num_rows > 0 ) {
+            $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+            $stmt->fetch();
+            $returnData = array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status);
+            // WE now have the post, lets return it.
+            return $returnData;
+        } 
+        else {
+            return FALSE;
+        }
+    }
+    $stmt->close();
+}
+
 function GetMatches(){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();

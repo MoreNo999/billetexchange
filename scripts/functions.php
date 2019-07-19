@@ -386,4 +386,34 @@ function GetUserPublicDataFromID($userID){
     }
     $stmt->close();
 }
+
+function ChangePassword($pPostData){
+    if (!isset($_SESSION['id'])){
+        die ('USER NOT LOGGED IN');
+    }
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
+    $data = GetSessionUserProfileData();
+
+    if ($pPostData['oldPassword'] != $data['Passwd']){
+        return False;
+    }
+
+    if ($stmt = $con->prepare("UPDATE Accounts SET Passwd=? WHERE UserID=?")) {
+        // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
+        //Store new password
+        $stmt->bind_param('s', htmlspecialchars($pPostData['newPassword'], ENT_NOQUOTES));
+        if ($stmt->execute()){
+            return True;
+        }
+        else{
+            return False;            
+        }
+        return False;
+        $stmt->close();
+    }
+    else{
+        return False;
+    }
+}
 ?>

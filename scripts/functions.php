@@ -329,7 +329,7 @@ function GetDashboardCards($columns=3){
 }
 
 function GetMatchesCards($columns=3){
-    $data = GetMatches()
+    $data = GetMatches();
 }
 
 //returns only username

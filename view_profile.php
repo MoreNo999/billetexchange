@@ -9,7 +9,7 @@
     if (!isset($_SESSION['id'])){
         header('Location: index.php');
     }
-	$data = GetUserPublicData($_GET['profile']);
+	$data = GetUserPublicDataFromID($_GET['profile']);
 ?>
 <link rel="stylesheet" type="text/css" href="../../css/home.css?ver=3">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">

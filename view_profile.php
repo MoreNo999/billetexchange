@@ -21,6 +21,8 @@
 		<div style="width:20%; margin-left: 40%; margin-top: 3%; background-color: grey; text-align: center;" class="w3-mobile w3-round w3-modal-content w3-animate-zoom">                  
             <label class="w3-text-black"><b>Username:<br></b></label>
             <div class="w3-text-white"><b><?php echo $data['UserName'];?></b></div>
+            <label class="w3-text-black"><br><b>Name:<br></b></label>
+            <div class="w3-text-white"><b><?php echo $data['FirstName'];?></b><b> </b><b><?php echo $data['LastName'];?></b></div>
 			<label class="w3-text-black"><br><b>Rank:<br></b></label>
             <div class="w3-text-white"><b><?php echo $data['Rank'];?></b></div>
 			<label class="w3-text-black"><br><b>Email:<br></b></label>

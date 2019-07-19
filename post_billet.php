@@ -91,10 +91,10 @@
                     <input class="w3-input w3-border w3-light-grey" type="text" name="PositionNumber" id="PositionNumber">
 
                     <label class="w3-text-black"><b>Description</b></label>
-                    <input class="w3-input w3-border w3-light-grey" type="text" name="Description" id="Description">
+                    <input class="w3-input w3-border w3-light-grey" type="text" name="Description" id="Description"><br>
 
 
-                    <input class="w3-btn w3-blue-grey" type="submit" id="submit" value="Create Billet Post">
+                    <input class="w3-btn w3-blue" style="text-align: center" type="submit" id="submit" value="Create Billet Post">
                 </form> 
                 </div>   
     <?php

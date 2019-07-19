@@ -262,7 +262,7 @@ function CardifyPost($data, $columns =3){
             for($cc = 0; $cc < count($data);$cc+=$columns){   //for($cc = $it; $cc < count($data);$cc+=$columns){
                 echo '      <div class="card_row">';
                 for ($it = 0; $it < $columns; $it++){
-                    $outputVar = "<h2 style='text-align: center;'> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
+                    $outputVar = "<a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'><button class='button'><span>View Post</span></button></a></br>";
                     $outputVar .= "<table class='data_table'>";
 
                     $outputVar .= "<tr>";

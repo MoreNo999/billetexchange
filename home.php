@@ -10,8 +10,9 @@
         header('Location: index.php');
     }
 ?>
-<link rel="stylesheet" type="text/css" href="../../css/home.css?ver=5.3">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet/less" type="text/css" href="../../css/styles.less">
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
 <div id="container">
     <div id="content">
         <div class="w3-container w3-blue w3-mobile">

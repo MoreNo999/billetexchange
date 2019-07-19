@@ -154,7 +154,7 @@ function GetMatches(){
                 if ($searchStmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = 1 and OutAFSC = ? and InAFSC = ? and OutRank = ? and InRank = ? and OutSkillLevel = ? and InSkillLevel = ?')) {
                     // Bind parameters (s = string, i = int, b = blob, etc)
                     //The variables will line up as opposites of the where statement, as we are trying to find a possible match.  InAFSC - OutAFSC.
-                    $searchStmt->bind_param('ssiiii', $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel']);
+                    $searchStmt->bind_param('ssiiii', strtoupper($post['InAFSC']), strtoupper($post['OutAFSC']), $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel']);
                     $searchStmt->execute();
                     // Store the results so we can process them.
                     $searchStmt->store_result();
@@ -275,7 +275,7 @@ function GetAllCards($columns=3){
             for($cc = $it; $cc < count($data);$cc+=$columns){
                 echo '      <div class="column">';
                 for ($it = 0; $it < $columns; $it++){
-                    $outputVar = "<h2> <a href='./view_post.php?Card=" . $cardCount . "'>View Post</a></h2></br>";
+                    $outputVar = "<h2> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
                     $outputVar .= "<table style='border-left: 1px;'>";
 
                     $outputVar .= "<tr>";
@@ -327,7 +327,7 @@ function GetDashboardCards($columns=3){
             for($cc = $it; $cc < count($data);$cc+=$columns){
                 echo '      <div class="column">';
                 for ($it = 0; $it < $columns; $it++){
-                    $outputVar = "<h2> <a href='./view_post.php?Card=" . $cardCount . "'>View Post</a></h2></br>";
+                    $outputVar = "<h2> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
                     $outputVar .= "<table style='border-left: 1px;'>";
 
                     $outputVar .= "<tr>";

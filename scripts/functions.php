@@ -260,34 +260,34 @@ function CardifyPost($data, $columns =3){
         for ($item = 0; $item < count($data); $item++){
             echo '  <div>';
             for($cc = 0; $cc < count($data);$cc+=$columns){   //for($cc = $it; $cc < count($data);$cc+=$columns){
-                echo '      <div class="cardrow">';
+                echo '      <div class="card_row">';
                 for ($it = 0; $it < $columns; $it++){
                     $outputVar = "<h2 style='text-align: center;'> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
-                    $outputVar .= "<table cellspacing='20px' style='text-align: left;'>";
+                    $outputVar .= "<table class='data_table'>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th style='text-align: left;'>Position #: " . $data[$cardCount]["PositionNumber"] . "</th>";
-                    $outputVar .= "<th style='text-align: left;'>Timestamp: " . $data[$cardCount]["DatePosted"] . "</th>";
+                    $outputVar .= "<th class='data_name'>Position #: <mark class='data'>" . $data[$cardCount]["PositionNumber"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>Timestamp: <mark class='data'>" . $data[$cardCount]["DatePosted"] . "</mark></th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th style='text-align: left;'>Out AFSC: " . $data[$cardCount]["OutAFSC"] . "</th>";
-                    $outputVar .= "<th style='text-align: left;'>In AFSC: " . $data[$cardCount]["InAFSC"] . "</th>";
+                    $outputVar .= "<th class='data_name'>Out AFSC: <mark class='data'>" . $data[$cardCount]["OutAFSC"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In AFSC: <mark class='data'>" . $data[$cardCount]["InAFSC"] . "</mark></th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th style='text-align: left;'>Out Rank: " . $data[$cardCount]["OutRank"] . "</th>";
-                    $outputVar .= "<th style='text-align: left;'>In Rank: " . $data[$cardCount]["InRank"] . "</th>";
+                    $outputVar .= "<th class='data_name'>Out Rank: <mark class='data'>" . $data[$cardCount]["OutRank"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In Rank: <mark class='data'>" . $data[$cardCount]["InRank"] . "</mark></th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th style='text-align: left;'>Out SEI: " . $data[$cardCount]["OutSEI"] . "</th>";
-                    $outputVar .= "<th style='text-align: left;'>In SEI: " . $data[$cardCount]["InSEI"] . "</th>";
+                    $outputVar .= "<th class='data_name'>Out SEI: <mark class='data'>" . $data[$cardCount]["OutSEI"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In SEI: <mark class='data'>" . $data[$cardCount]["InSEI"] . "</mark></th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th style='text-align: left;'>Out Level: " . $data[$cardCount]["OutSkillLevel"] . "</th>";
-                    $outputVar .= "<th style='text-align: left;'>In Level: " . $data[$cardCount]["InSkillLevel"] . "</th>";
+                    $outputVar .= "<th class='data_name'>Out Level: <mark class='data'>" . $data[$cardCount]["OutSkillLevel"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In Level: <mark class='data'>" . $data[$cardCount]["InSkillLevel"] . "</mark></th>";
                     $outputVar .= "</tr>";
 
                     

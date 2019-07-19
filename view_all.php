@@ -10,8 +10,8 @@
         header('Location: index.php');
     }
 ?>
-<link rel="stylesheet" type="text/css" href="/css/home.css?ver=5">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css?ver=5">
+<link rel="stylesheet" type="text/css" href="/css/home.css?ver=5.1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css?ver=5.1">
 <div id="container">
     <div id="content">
         <div class="w3-container w3-blue w3-mobile">

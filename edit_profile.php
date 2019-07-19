@@ -22,16 +22,16 @@
 		<div style="width:20%; margin-left: 40%; margin-top: 1%; font-size: 14px; background-color: grey; text-align: center;" class="w3-mobile w3-round w3-modal-content w3-animate-zoom">                  
 			<label class="w3-text-black"><br><b>Rank:<br></b></label>
 			<select class="w3-select w3-light-grey w3-border w3-mobile" style="text-align: center" id="rank" name="rank">
-                            <option value="<?php echo $data['Rank'];?>" selected><?php echo 'E-' . $data['Rank'];?></option>
-                            <option value="1">E-1</option>
-                            <option value="2">E-2</option>
-                            <option value="3">E-3</option>
-                            <option value="4">E-4</option>
-                            <option value="5">E-5</option>
-                            <option value="6">E-6</option>
-                            <option value="7">E-7</option>
-                            <option value="8">E-8</option>
-                            <option value="9">E-9</option>
+                            <option value="<?php echo $data['Rank'];?>" selected><?php echo $data['Rank'];?></option>
+                            <option value="E-1">E-1</option>
+                            <option value="E-2">E-2</option>
+                            <option value="E-3">E-3</option>
+                            <option value="E-4">E-4</option>
+                            <option value="E-5">E-5</option>
+                            <option value="E-6">E-6</option>
+                            <option value="E-7">E-7</option>
+                            <option value="E-8">E-8</option>
+                            <option value="E-9">E-9</option>
             </select>
 			<label class="w3-text-black"><br><br><b>First Name:<br></b></label>
             <input class="w3-input w3-border w3-light-grey" style="color: black; text-align: center;" value="<?php echo $data['FirstName'];?>" id="firstName" name="firstName">

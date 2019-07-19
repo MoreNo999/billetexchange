@@ -327,8 +327,8 @@ function GetDashboardCards($columns=3){
             for($cc = $it; $cc < count($data);$cc+=$columns){
                 echo '      <div style="padding: 5px; display: flex; justify-content: space-between;">';
                 for ($it = 0; $it < $columns; $it++){
-                    $outputVar = "<h2 style=\"text-align: center;\"> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
-                    $outputVar .= "<table cellspacing=\"20px\" style='text-align: left;'>>";
+                    $outputVar = "<h2 style='text-align: center;'> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
+                    $outputVar .= "<table cellspacing='20px' style='text-align: left;'>";
 
                     $outputVar .= "<tr>";
                     $outputVar .= "<th>Position #: " . $data[$cardCount]["PositionNumber"] . "</th>";
@@ -361,7 +361,7 @@ function GetDashboardCards($columns=3){
                         $cardCount++;
                         break;
                     }
-                    echo '          <div class="w3-round-xlarge w3-white w3-animate-zoom" style="width: 33%;><p>' . $outputVar .'</p></div>';
+                    echo '          <div class="w3-round-xlarge w3-white w3-animate-zoom" style="width: 33%;"><p>' . $outputVar .'</p></div>';
                     $cardCount++;
                     $item++;
                 }

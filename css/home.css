@@ -11,3 +11,16 @@ body{
   width: 33%;
   background-color: white;
 }
+
+.data_name{
+  text-align: left;
+  color: black;
+}
+
+.title{
+  color: black;
+}
+
+span{
+  color: black;
+}

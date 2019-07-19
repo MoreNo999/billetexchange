@@ -29,15 +29,15 @@
                     <label class="w3-text-black"><b>In-Rank</b></label>
                     <select class="w3-select" name="InRank" id="InRank">
                             <option value="" disabled selected>Choose your option</option>
-                            <option value="1">E-1</option>
-                            <option value="2">E-2</option>
-                            <option value="3">E-3</option>
-                            <option value="4">E-4</option>
-                            <option value="5">E-5</option>
-                            <option value="6">E-6</option>
-                            <option value="7">E-7</option>
-                            <option value="8">E-8</option>
-                            <option value="9">E-9</option>
+                            <option value="E-1">E-1</option>
+                            <option value="E-2">E-2</option>
+                            <option value="E-3">E-3</option>
+                            <option value="E-4">E-4</option>
+                            <option value="E-5">E-5</option>
+                            <option value="E-6">E-6</option>
+                            <option value="E-7">E-7</option>
+                            <option value="E-8">E-8</option>
+                            <option value="E-9">E-9</option>
                     </select>
 
                     <label class="w3-text-black"><b>In-SEI</b></label>
@@ -62,15 +62,15 @@
                     <label class="w3-text-black"><b>Out-Rank</b></label>
                     <select class="w3-select" name="OutRank" id="OutRank">
                             <option value="" disabled selected>Choose your option</option>
-                            <option value="1">E-1</option>
-                            <option value="2">E-2</option>
-                            <option value="3">E-3</option>
-                            <option value="4">E-4</option>
-                            <option value="5">E-5</option>
-                            <option value="6">E-6</option>
-                            <option value="7">E-7</option>
-                            <option value="8">E-8</option>
-                            <option value="9">E-9</option>
+                            <option value="E-1">E-1</option>
+                            <option value="E-2">E-2</option>
+                            <option value="E-3">E-3</option>
+                            <option value="E-4">E-4</option>
+                            <option value="E-5">E-5</option>
+                            <option value="E-6">E-6</option>
+                            <option value="E-7">E-7</option>
+                            <option value="E-8">E-8</option>
+                            <option value="E-9">E-9</option>
                     </select>
 
                     <label class="w3-text-black"><b>Out-SEI</b></label>

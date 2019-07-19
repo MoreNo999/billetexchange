@@ -328,6 +328,10 @@ function GetDashboardCards($columns=3){
     CardifyPost($data,$columns);
 }
 
+function GetMatchesCards($columns=3){
+    $data = GetMatches()
+}
+
 //returns only username
 function GetUserNameFromID($userID){
     $conMan = new SQLConnectionManager();
@@ -402,7 +406,7 @@ function ChangePassword($pPostData){
     if ($stmt = $con->prepare("UPDATE Accounts SET Passwd=? WHERE UserID=?")) {
         // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
         //Store new password
-        $stmt->bind_param('s', htmlspecialchars($pPostData['newPassword'], ENT_NOQUOTES));
+        $stmt->bind_param('s', password_hash(htmlspecialchars($pPostData['newPassword'], ENT_NOQUOTES)), PASSWORD_DEFAULT);
         if ($stmt->execute()){
             return True;
         }

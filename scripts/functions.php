@@ -1,5 +1,6 @@
 <?php
 require_once(dirname(__FILE__)."/../config.php");
+session_start();
 
 class SQLConnectionManager{
     public $mDbName;
@@ -398,25 +399,27 @@ function ChangePassword($pPostData){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
     $data = GetSessionUserProfileData();
-
-    if ($pPostData['oldPassword'] != $data['Passwd']){
-        return False;
-    }
-
-    if ($stmt = $con->prepare("UPDATE Accounts SET Passwd=? WHERE UserID=?")) {
-        // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
-        //Store new password
-        $stmt->bind_param('s', password_hash(htmlspecialchars($pPostData['newPassword'], ENT_NOQUOTES)), PASSWORD_DEFAULT);
-        if ($stmt->execute()){
-            return True;
+    echo password_verify($pPostData['oldPassword'], $data['Passwd']);
+    if (password_verify($pPostData['oldPassword'], $data['Passwd'])){
+        if ($stmt = $con->prepare("UPDATE Accounts SET Passwd=? WHERE UserID=?")) {
+            // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
+            //Store new password
+            $stmt->bind_param('si', password_hash($pPostData['newPassword'], PASSWORD_DEFAULT), $_SESSION["id"]);
+            if ($stmt->execute()){
+                return True;
+            }
+            else{
+                return False;            
+            }
+            return False;
+            $stmt->close();
         }
         else{
-            return False;            
+            return False;
         }
-        return False;
-        $stmt->close();
     }
     else{
+        echo "PASSWORD MISMATCH<br>";
         return False;
     }
 }

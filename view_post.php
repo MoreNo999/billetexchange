@@ -17,7 +17,7 @@
 <div id="container">
     <div id="content">
         <div class="w3-container w3-blue w3-mobile">
-            <h2>Profile</h2>
+            <h2>View Post</h2>
         </div>
         <div style="width:20%; margin-left: 40%; margin-top: 3%; background-color: grey; text-align: center;" class="w3-mobile w3-round w3-modal-content w3-animate-zoom">                  
             <label class="w3-text-black"><b>Posted By: <br></b></label>

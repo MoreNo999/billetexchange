@@ -321,38 +321,38 @@ function GetDashboardCards($columns=3){
     $currentRow = 0;
     $currentColumn = 0;
     $cardCount = 0;
-    echo '<div class="dashboard-cards w3-container">';
+    echo '<div>';
         for ($item = 0; $item < count($data); $item++){
-            echo '  <div class="row w3-container w3-cell">';
+            echo '  <div>';
             for($cc = $it; $cc < count($data);$cc+=$columns){
-                echo '      <div class="column">';
+                echo '      <div style="padding: 5px; display: flex; justify-content: space-between;">';
                 for ($it = 0; $it < $columns; $it++){
-                    $outputVar = "<h2> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
-                    $outputVar .= "<table style='border-left: 1px;'>";
+                    $outputVar = "<h2 style=\"text-align: center;\"> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
+                    $outputVar .= "<table cellspacing=\"20px\" style='text-align: left;'>>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Position #</th><th>" . $data[$cardCount]["PositionNumber"] . "</th>";
-                    $outputVar .= "<th>Timestamp</th><th>" . $data[$cardCount]["DatePosted"] . "</th>";
+                    $outputVar .= "<th>Position #: " . $data[$cardCount]["PositionNumber"] . "</th>";
+                    $outputVar .= "<th>Timestamp: " . $data[$cardCount]["DatePosted"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out AFSC</th><th>" . $data[$cardCount]["OutAFSC"] . "</th>";
-                    $outputVar .= "<th>In AFSC</th><th>" . $data[$cardCount]["InAFSC"] . "</th>";
+                    $outputVar .= "<th>Out AFSC: " . $data[$cardCount]["OutAFSC"] . "</th>";
+                    $outputVar .= "<th>In AFSC: " . $data[$cardCount]["InAFSC"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out Rank</th><th>" . $data[$cardCount]["OutRank"] . "</th>";
-                    $outputVar .= "<th>In Rank</th><th>" . $data[$cardCount]["InRank"] . "</th>";
+                    $outputVar .= "<th>Out Rank: " . $data[$cardCount]["OutRank"] . "</th>";
+                    $outputVar .= "<th>In Rank: " . $data[$cardCount]["InRank"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out SEI</th><th>" . $data[$cardCount]["OutSEI"] . "</th>";
-                    $outputVar .= "<th>In SEI</th><th>" . $data[$cardCount]["InSEI"] . "</th>";
+                    $outputVar .= "<th>Out SEI: " . $data[$cardCount]["OutSEI"] . "</th>";
+                    $outputVar .= "<th>In SEI: " . $data[$cardCount]["InSEI"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out Level</th><th>" . $data[$cardCount]["OutSkillLevel"] . "</th>";
-                    $outputVar .= "<th>In Level</th><th>" . $data[$cardCount]["InSkillLevel"] . "</th>";
+                    $outputVar .= "<th>Out Level: " . $data[$cardCount]["OutSkillLevel"] . "</th>";
+                    $outputVar .= "<th>In Level: " . $data[$cardCount]["InSkillLevel"] . "</th>";
                     $outputVar .= "</tr>";
 
                     
@@ -361,7 +361,7 @@ function GetDashboardCards($columns=3){
                         $cardCount++;
                         break;
                     }
-                    echo '          <div class="card w3-round-xxlarge w3-animate-zoom w3-cell"><p>' . $outputVar .'</p></div>';
+                    echo '          <div class="w3-round-xlarge w3-white w3-animate-zoom" style="width: 33%;><p>' . $outputVar .'</p></div>';
                     $cardCount++;
                     $item++;
                 }
@@ -402,7 +402,7 @@ function GetUserNameFromID($userID){
     $stmt->close();
 }
 
-//Returns userid, username, email, and phonenumber
+//Returns userid, username, email, firstname, lastname, phonenumber, and unit.
 function GetUserPublicDataFromID($userID){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
@@ -419,7 +419,7 @@ function GetUserPublicDataFromID($userID){
             $returnData = array();
             
             $stmt->fetch();
-            $returnData = array( 'UserID'=>$UserID, 'UserName'=>$UserName, 'Email'=>$Email, 'PhoneNumber'=>$PhoneNumber);
+            $returnData = array( 'UserID'=>$UserID, 'UserName'=>$UserName, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'Email'=>$Email, 'PhoneNumber'=>$PhoneNumber, 'Unit'=>$Unit);
             
             // Account exists, now we verify the password.
             // Note: remember to use password_hash in your registration file to store the hashed passwords.

@@ -223,7 +223,7 @@ function UpdateSessionUserProfileData($pPostData){
     if ($stmt = $con->prepare("UPDATE Accounts SET Email=?, Unit=?, PhoneNumber=?, FirstName=?, LastName=?, Rank=?, PASCode=? WHERE UserID=?")) {
         // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 
-        $stmt->bind_param('sssssssi', htmlspecialchars($pPostData['email'], ENT_NOQUOTES), htmlspecialchars($pPostData['unit'], ENT_NOQUOTES), htmlspecialchars($pPostData['phone'], ENT_NOQUOTES), htmlspecialchars($pPostData['firstName'], ENT_NOQUOTES), htmlspecialchars($pPostData['lastName'], ENT_NOQUOTES), htmlspecialchars($pPostData['rank'], ENT_NOQUOTES), htmlspecialchars($pPostData['PASCode'], ENT_NOQUOTES), $_SESSION['id']);
+        $stmt->bind_param('ssssssii', htmlspecialchars($pPostData['email'], ENT_NOQUOTES), htmlspecialchars($pPostData['unit'], ENT_NOQUOTES), htmlspecialchars($pPostData['phone'], ENT_NOQUOTES), htmlspecialchars($pPostData['firstName'], ENT_NOQUOTES), htmlspecialchars($pPostData['lastName'], ENT_NOQUOTES), $pPostData['rank'], htmlspecialchars($pPostData['PASCode'], ENT_NOQUOTES), $_SESSION['id']);
 
         if ($stmt->execute()){
             return True;
@@ -245,12 +245,12 @@ function GetAllCards($columns=3){
     $currentRow = 0;
     $currentColumn = 0;
     $cardCount = 0;
-    echo '<div class="dashboard-cards">';
+    echo '<div class="dashboard-cards w3-container">';
         for ($item = 0; $item < count($data); $item++){
-            echo '  <div class="row">';
-            for($it = 0; $it < $columns; $it++){
+            echo '  <div class="row w3-container w3-cell">';
+            for($cc = $it; $cc < count($data);$cc+=$columns){
                 echo '      <div class="column">';
-                for ($cc = $it; $cc < count($data);$cc+=4){
+                for ($it = 0; $it < $columns; $it++){
                     $outputVar = "<h2> <a href='./view_post.php?Card=" . $cardCount . "'>View Post</a></h2></br>";
                     $outputVar .= "<table style='border-left: 1px;'>";
 
@@ -281,7 +281,7 @@ function GetAllCards($columns=3){
 
                     
                     $outputVar .= "</table>";
-                    echo '          <div class="card"><p>' . $outputVar .'</p></div>';
+                    echo '          <div class="card w3-round-xxlarge w3-animate-zoom w3-cell"><p>' . $outputVar .'</p></div>';
                     $cardCount++;
                     $item++;
                 }

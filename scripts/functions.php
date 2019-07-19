@@ -371,4 +371,34 @@ function GetDashboardCards($columns=3){
         }    
     echo '</div>';
 }
+
+function GetUserNameFromID($userID){
+    
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
+
+    //Prepare our sql statement, nullify SQL Injection
+    if ($stmt = $con->prepare('SELECT * FROM Accounts WHERE UserID = ?')) {
+        // Bind parameters (s = string, i = int, b = blob, etc)
+        $stmt->bind_param('i', $userID);
+        $stmt->execute();
+        // Store the result so we can check if the account exists in the database.
+        $stmt->store_result();
+        if ($stmt->num_rows != 0) {
+            $stmt->bind_result(	$UserID, $UserName, $Passwd, $FirstName, $LastName, $Rank, $Unit, $Email, $PhoneNumber, $PASCode);
+            $returnData = array();
+            
+            $stmt->fetch();
+            $returnData = array( 'UserID'=>$UserID, 'UserName'=>$UserName, 'Passwd'=>$Passwd, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'Rank'=>$Rank, 'Unit'=>$Unit, 'Email'=>$Email, 'PhoneNumber'=>$PhoneNumber, 'PASCode'=>$PASCode);
+            
+            // Account exists, now we verify the password.
+            // Note: remember to use password_hash in your registration file to store the hashed passwords.
+            return $returnData;
+        } 
+        else {
+            return FALSE;
+        }
+    }
+    $stmt->close();
+}
 ?>

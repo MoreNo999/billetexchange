@@ -1,8 +1,8 @@
 // Variables to change cards
-@card_color: white;
+@card_color: grey;
 @data_name_color: black;
 @data_color: black;
-@button_bg_color: grey;
+@button_bg_color: darken(@card_color, 20%);
 @button_text_color: white;
 @button_font_size: 28px;
 
@@ -15,16 +15,13 @@ body{
 .card{
     width: 33%;
     background-color: @card_color;
+    border: 5px white;
 }
 
 .card_row{
     padding: 5px; 
     display: flex; 
     justify-content: space-between;
-}
-
-.title{
-    color: red;
 }
 
 .data_table{
@@ -45,7 +42,7 @@ mark.data{
 // CSS to make button look cool
 .button {
     display: inline-block;
-    border-radius: 4px;
+    border-radius: 8px;
     background-color: @button_bg_color;
     border: none;
     color: @button_text_color;

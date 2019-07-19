@@ -402,7 +402,7 @@ function GetUserNameFromID($userID){
     $stmt->close();
 }
 
-//Returns userid, username, email, firstname, lastname, phonenumber, and unit.
+//Returns userid, username, email, firstname, lastname, rank, phonenumber, and unit.
 function GetUserPublicDataFromID($userID){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
@@ -416,10 +416,9 @@ function GetUserPublicDataFromID($userID){
         $stmt->store_result();
         if ($stmt->num_rows != 0) {
             $stmt->bind_result(	$UserID, $UserName, $Passwd, $FirstName, $LastName, $Rank, $Unit, $Email, $PhoneNumber, $PASCode);
-            $returnData = array();
             
             $stmt->fetch();
-            $returnData = array( 'UserID'=>$UserID, 'UserName'=>$UserName, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'Email'=>$Email, 'PhoneNumber'=>$PhoneNumber, 'Unit'=>$Unit);
+            $returnData = array( 'UserID'=>$UserID, 'UserName'=>$UserName, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'Rank'=>$Rank, 'Email'=>$Email, 'PhoneNumber'=>$PhoneNumber, 'Unit'=>$Unit);
             
             // Account exists, now we verify the password.
             // Note: remember to use password_hash in your registration file to store the hashed passwords.

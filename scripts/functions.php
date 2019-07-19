@@ -34,7 +34,6 @@ class SQLConnectionManager{
 
 }
 
-
 function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
@@ -121,6 +120,8 @@ function GetSingleBilletPost($id){
     $stmt->close();
 }
 
+
+
 function GetMatches(){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
@@ -137,44 +138,36 @@ function GetMatches(){
         $stmt->store_result();
         if ($stmt->num_rows > 0) {
             $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
-            $returnData = array();
+            $allUsersPosts = array();
             
             while ($stmt->fetch()){
-                    array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
+                    array_push($allUsersPosts, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
             }
             //We now have the data, need to run over it and find matches.  This may be expensive :S
             //Currently only matching AFSC Rank SkillLevel
             $matchedPosts = array(); 
             $AllPostsMatches = array();
-            $aSearchKeys = array( "OutAFSC", "InAFSC", "OutRank", "InRank", "OutSkillLevel", "InSkillLevel");
-            $bSearchKeys = array( "InAFSC", "OutAFSC", "InRank", "OutRank", "InSkillLevel", "OutSkillLevel");
-            $flag = True;
 
-            foreach($returnData as $post){
+            foreach($allUsersPosts as $post){
                 //We have a list of the posts made by this user.  Now we check for any that match what we want on the SQL Server.
                 if ($searchStmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = 1 and OutAFSC = ? and InAFSC = ? and OutRank = ? and InRank = ? and OutSkillLevel = ? and InSkillLevel = ?')) {
                     // Bind parameters (s = string, i = int, b = blob, etc)
                     //The variables will line up as opposites of the where statement, as we are trying to find a possible match.  InAFSC - OutAFSC.
-                    $searchStmt->bind_param('ssiiii', strtoupper($post['InAFSC']), strtoupper($post['OutAFSC']), $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel']);
-                    $searchStmt->execute();
-                    // Store the results so we can process them.
-                    $searchStmt->store_result();
-                    if ($searchStmt->num_rows > 0) {
-                        $searchStmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
-                        $returnData = array();
-                        
-                        while ($searchStmt->fetch()){
-                            array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
-                            array_push($matchedPosts, $ID);
-                        }                        
-                        array_push($AllPostsMatches, array($post['ID'], $matchedPosts));
+                    //echo $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel'];
+                    $searchStmt->bind_param('ssiiii', $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel']);
+                    if ($searchStmt->execute()){
+                        // Store the results so we can process them.
+                        $searchStmt->store_result();
+                        if ($searchStmt->num_rows > 0) {
+                            $searchStmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+                            $foundData = array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status);
+                            while ($searchStmt->fetch()){
+                                array_push($matchedPosts, $foundData);
+                            }                        
+                        //array_push($AllPostsMatches, array($post['ID'], $matchedPosts));
+                        $AllPostsMatches[(string)$post['ID']] = $matchedPosts;
+                        }
                     }
-                    else {
-                        return False;
-                    }
-                }
-                else {
-                    return False;
                 }
                 $searchStmt->close();
             }
@@ -184,15 +177,9 @@ function GetMatches(){
                         // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
                         $matchStmt->bind_param('ii', $match[0], $fmatch);
                         if ($matchStmt->execute()){
-                            return $returnData;
-                        }
-                        else {
-                            return False;
                         }
                     }
-                    else{
-                        return False;
-                    }
+                    
                     $matchStmt->close();
                 }
             }
@@ -200,6 +187,7 @@ function GetMatches(){
         else {
             return FALSE;
         }
+        return $AllPostsMatches;
     }
     $stmt->close();
 }
@@ -271,35 +259,35 @@ function CardifyPost($data, $columns =3){
     echo '<div>';
         for ($item = 0; $item < count($data); $item++){
             echo '  <div>';
-            for($cc = $it; $cc < count($data);$cc+=$columns){
+            for($cc = 0; $cc < count($data);$cc+=$columns){   //for($cc = $it; $cc < count($data);$cc+=$columns){
                 echo '      <div class="cardrow">';
                 for ($it = 0; $it < $columns; $it++){
-                    $outputVar = "<h2 class='title'> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
+                    $outputVar = "<h2 style='text-align: center;'> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
                     $outputVar .= "<table cellspacing='20px' style='text-align: left;'>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th class='data_name'>Position #: <span>" . $data[$cardCount]["PositionNumber"] . "</span></th>";
-                    $outputVar .= "<th class='data_name'>Timestamp: <span>" . $data[$cardCount]["DatePosted"] . "</span></th>";
+                    $outputVar .= "<th style='text-align: left;'>Position #: " . $data[$cardCount]["PositionNumber"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>Timestamp: " . $data[$cardCount]["DatePosted"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th class='data_name'>Out AFSC: <span>" . $data[$cardCount]["OutAFSC"] . "</span></th>";
-                    $outputVar .= "<th class='data_name'>In AFSC: <span>" . $data[$cardCount]["InAFSC"] . "</span></th>";
+                    $outputVar .= "<th style='text-align: left;'>Out AFSC: " . $data[$cardCount]["OutAFSC"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>In AFSC: " . $data[$cardCount]["InAFSC"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th class='data_name'>Out Rank: <span>" . $data[$cardCount]["OutRank"] . "</span></th>";
-                    $outputVar .= "<th class='data_name'>In Rank: <span>" . $data[$cardCount]["InRank"] . "</span></th>";
+                    $outputVar .= "<th style='text-align: left;'>Out Rank: " . $data[$cardCount]["OutRank"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>In Rank: " . $data[$cardCount]["InRank"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th class='data_name'>Out SEI: <span>" . $data[$cardCount]["OutSEI"] . "</span></th>";
-                    $outputVar .= "<th class='data_name'>In SEI: <span>" . $data[$cardCount]["InSEI"] . "</span></th>";
+                    $outputVar .= "<th style='text-align: left;'>Out SEI: " . $data[$cardCount]["OutSEI"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>In SEI: " . $data[$cardCount]["InSEI"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th class='data_name'>Out Level: <span>" . $data[$cardCount]["OutSkillLevel"] . "</span></th>";
-                    $outputVar .= "<th class='data_name'>In Level: <span>" . $data[$cardCount]["InSkillLevel"] . "</span></th>";
+                    $outputVar .= "<th style='text-align: left;'>Out Level: " . $data[$cardCount]["OutSkillLevel"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>In Level: " . $data[$cardCount]["InSkillLevel"] . "</th>";
                     $outputVar .= "</tr>";
 
                     
@@ -329,8 +317,10 @@ function GetDashboardCards($columns=3){
     CardifyPost($data,$columns);
 }
 
-function GetMatchesCards($columns=3){
+function GetMatchesCards($columns=3, $id){
     $data = GetMatches();
+    echo var_dump($data[$id]);
+    echo CardifyPost($data[$id], $columns);
 }
 
 //returns only username

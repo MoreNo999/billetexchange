@@ -263,61 +263,7 @@ function UpdateSessionUserProfileData($pPostData){
     }
 }
 
-
-function GetAllCards($columns=3){
-    $data = GetAllBilletPosts(99,0,1);
-    $currentRow = 0;
-    $currentColumn = 0;
-    $cardCount = 0;
-    echo '<div class="dashboard-cards w3-container">';
-        for ($item = 0; $item < count($data); $item++){
-            echo '  <div class="row w3-container w3-cell">';
-            for($cc = $it; $cc < count($data);$cc+=$columns){
-                echo '      <div class="column">';
-                for ($it = 0; $it < $columns; $it++){
-                    $outputVar = "<h2> <a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'>View Post</a></h2></br>";
-                    $outputVar .= "<table style='border-left: 1px;'>";
-
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th>Position #</th><th>" . $data[$cardCount]["PositionNumber"] . "</th>";
-                    $outputVar .= "<th>Timestamp</th><th>" . $data[$cardCount]["DatePosted"] . "</th>";
-                    $outputVar .= "</tr>";
-
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out AFSC</th><th>" . $data[$cardCount]["OutAFSC"] . "</th>";
-                    $outputVar .= "<th>In AFSC</th><th>" . $data[$cardCount]["InAFSC"] . "</th>";
-                    $outputVar .= "</tr>";
-
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out Rank</th><th>" . $data[$cardCount]["OutRank"] . "</th>";
-                    $outputVar .= "<th>In Rank</th><th>" . $data[$cardCount]["InRank"] . "</th>";
-                    $outputVar .= "</tr>";
-
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out SEI</th><th>" . $data[$cardCount]["OutSEI"] . "</th>";
-                    $outputVar .= "<th>In SEI</th><th>" . $data[$cardCount]["InSEI"] . "</th>";
-                    $outputVar .= "</tr>";
-
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out Level</th><th>" . $data[$cardCount]["OutSkillLevel"] . "</th>";
-                    $outputVar .= "<th>In Level</th><th>" . $data[$cardCount]["InSkillLevel"] . "</th>";
-                    $outputVar .= "</tr>";
-
-                    
-                    $outputVar .= "</table>";
-                    echo '          <div class="card w3-round-xxlarge w3-animate-zoom w3-cell"><p>' . $outputVar .'</p></div>';
-                    $cardCount++;
-                    $item++;
-                }
-                echo '      </div>';
-            }
-            echo '  </div>';
-        }    
-    echo '</div>';
-}
-
-function GetDashboardCards($columns=3){
-    $data = GetBilletPosts($_SESSION['id'],99,0,1);
+function CardifyPost($data, $columns =3){
     $currentRow = 0;
     $currentColumn = 0;
     $cardCount = 0;
@@ -370,6 +316,16 @@ function GetDashboardCards($columns=3){
             echo '  </div>';
         }    
     echo '</div>';
+}
+
+function GetAllCards($columns=3){
+    $data = GetAllBilletPosts(99,0,1);
+    CardifyPost($data,$columns);
+}
+
+function GetDashboardCards($columns=3){
+    $data = GetBilletPosts($_SESSION['id'],99,0,1);
+    CardifyPost($data,$columns);
 }
 
 //returns only username

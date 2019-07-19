@@ -17,8 +17,9 @@
         <div class="w3-container w3-blue w3-mobile">
             <h2>Dashboard</h2>
         </div>
+        </div>
         <?php GetDashboardCards(3); ?>
-    </div>
+    
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");
     ?>

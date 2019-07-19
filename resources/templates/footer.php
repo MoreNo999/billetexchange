@@ -1,9 +1,9 @@
 <html>
 <head>
 </head>
-<link rel="stylesheet" type="text/css" href="./css/footer.css?ver=12">
+<link rel="stylesheet" type="text/css" href="./css/footer.css?ver=1.2">
 <body>
-<div class="footer">
+<div class="footer" style="margin-left: 8%;">
 	<table>
 	  <tr>
 		<th><a href="home.php" title="Home Page">Home</a></th>

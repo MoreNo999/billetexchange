@@ -277,28 +277,28 @@ function CardifyPost($data, $columns =3){
                     $outputVar .= "<table cellspacing='20px' style='text-align: left;'>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Position #: " . $data[$cardCount]["PositionNumber"] . "</th>";
-                    $outputVar .= "<th>Timestamp: " . $data[$cardCount]["DatePosted"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>Position #: " . $data[$cardCount]["PositionNumber"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>Timestamp: " . $data[$cardCount]["DatePosted"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out AFSC: " . $data[$cardCount]["OutAFSC"] . "</th>";
-                    $outputVar .= "<th>In AFSC: " . $data[$cardCount]["InAFSC"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>Out AFSC: " . $data[$cardCount]["OutAFSC"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>In AFSC: " . $data[$cardCount]["InAFSC"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out Rank: " . $data[$cardCount]["OutRank"] . "</th>";
-                    $outputVar .= "<th>In Rank: " . $data[$cardCount]["InRank"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>Out Rank: " . $data[$cardCount]["OutRank"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>In Rank: " . $data[$cardCount]["InRank"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out SEI: " . $data[$cardCount]["OutSEI"] . "</th>";
-                    $outputVar .= "<th>In SEI: " . $data[$cardCount]["InSEI"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>Out SEI: " . $data[$cardCount]["OutSEI"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>In SEI: " . $data[$cardCount]["InSEI"] . "</th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out Level: " . $data[$cardCount]["OutSkillLevel"] . "</th>";
-                    $outputVar .= "<th>In Level: " . $data[$cardCount]["InSkillLevel"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>Out Level: " . $data[$cardCount]["OutSkillLevel"] . "</th>";
+                    $outputVar .= "<th style='text-align: left;'>In Level: " . $data[$cardCount]["InSkillLevel"] . "</th>";
                     $outputVar .= "</tr>";
 
                     

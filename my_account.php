@@ -19,81 +19,48 @@
         <div class="w3-container w3-blue w3-mobile">
             <h2>My Account</h2>
         </div>
-		<div class="w3-animate-zoom card">
-            <table class="my_table">
+        <div class="box">
+            <div class="w3-animate-zoom card w3-mobile">
+            <table class="my_table" align="center">
                 <tr>
                     <th>
-                        <b>Username:</b>
+                        <b>Username: </b><?php echo $data['UserName'];?>
                     </th> 
                 </tr>
                 <tr>
+                    <th> <b>Rank: </b><?php echo $data['Rank'];?>
+                </th>
+                </tr>
                     <th>
-                        <?php echo $data['UserName'];?>
+                        <b>Name: </b><?php echo $data['FirstName'];?> <?php echo $data['LastName'];?>
                     </th>
                 </tr>
-                <tr>
-                    <th> <b>Rank:</b></th>
-                </tr>
-                <tr>
                     <th>
-                        <?php echo $data['Rank'];?>
+                        <b>Email: </b><?php echo $data['Email'];?>
                     </th>
                 </tr>
-                <tr>
                     <th>
-                        <b>Name:</b>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <?php echo $data['FirstName'];?> <?php echo $data['LastName'];?>
+                        <b>Phone Number: </b><?php echo $data['PhoneNumber'];?>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        <b>Email:</b>
+                        <b>Unit: </b><?php echo $data['Unit'];?>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        <?php echo $data['Email'];?>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <b>Phone Number:</b>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <?php echo $data['PhoneNumber'];?>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <b>Unit:</b>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <?php echo $data['Unit'];?>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <b>PAS Code (If Applicable):</b>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <?php echo $data['PASCode'];?>
+                        <b>PAS Code (If Applicable): </b><?php echo $data['PASCode'];?>
                     </th>
                 </tr>
             </table>                  
-            
+            <div class="buttons">
 			 <a href="edit_profile.php" title="Edit Profile"><button>Edit Profile</button></a>
-			 <a href="change_password.php" title="Change Password"><button>Change Password</button></a>
-		</div>
+             <a href="change_password.php" title="Change Password"><button>Change Password</button></a>
+            </div>
+        </div>
+    </div>
+        
 		
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");

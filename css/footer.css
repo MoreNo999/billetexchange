@@ -1,39 +1,46 @@
 .footer {
-   position: fixed;
-   bottom: 0;
-   background-color: #2196F3;
-   color:  #fff;
-   font-size: 12px;
-   width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #2196F3;
+  color:  #fff;
+  font-size: 12px;
+  width: 100%;
+  display: block;
 }
 
 .footer table {
-	font-family: arial, sans-serif;
-	border-collapse: collapse;
-	width: 90%;
-	font-size: 12px;
-	table-layout: fixed;
-	margin-left: 5%;
+ font-family: arial, sans-serif;
+ border-collapse: collapse;
+ width: 90%;
+ font-size: 12px;
+ table-layout: fixed;
+ margin-left: 5%;
 }
 
 .footer td, th {
-  text-align: center;
-  padding: 12px;
+ text-align: center;
+ padding: 12px;
 
 }
 
 .footer a:link {
-  color: #04AFF9;
-  background-color: transparent;
-  text-decoration: none;
+ color: #04AFF9;
+ background-color: transparent;
+ text-decoration: none;
 }
 .footer a:hover {
-  color: #04AFF9;
-  background-color: transparent;
-  text-decoration: underline;
+ color: #04AFF9;
+ background-color: transparent;
+ text-decoration: underline;
 }
 .footer a:active {
-  color: yellow;
-  background-color: transparent;
-  text-decoration: underline;
+ color: yellow;
+ background-color: transparent;
+ text-decoration: underline;
 }
+
+@media all and (max-width:600px) {
+ .footer{
+   position: static;
+ }
+ }

@@ -17,8 +17,26 @@
         <div class="w3-container w3-blue w3-mobile">
                     <h2>New Billet</h2>
                 </div>
-                 <div style="width:40%; margin-left: 30%; margin-top: 3%; background-color: grey;" class="w3-mobile w3-round w3-modal-content w3-animate-zoom">
-                <form class="w3-container w3-round" action="./scripts/CreatePost.php" method="POST">
+
+<style>
+.box{
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+  text-align: center;
+}
+.myform{
+  background-color: grey;
+  padding: 5px;
+  border-radius: 8px;
+  
+}
+</style>
+
+
+            <div class="box">
+                <div class="w3-animate-zoom myform">
+                    <form class="w3-container w3-round" action="./scripts/CreatePost.php" method="POST">
                     
                     
                     <label class="w3-text-black"><b>In-AFSC</b></label>
@@ -94,9 +112,12 @@
                     <input class="w3-input w3-border w3-light-grey" type="text" name="Description" id="Description"><br>
 
 
-                    <input class="w3-btn w3-blue" style="text-align: center" type="submit" id="submit" value="Create Billet Post">
+                    <input class="w3-btn w3-blue" type="submit" id="submit" value="Create Billet Post">
                 </form> 
-                </div>   
+            </div>
+        </div> 
+                
+                   
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");
     ?>

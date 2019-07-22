@@ -18,11 +18,14 @@
         <div class="w3-container w3-blue w3-mobile">
             <h2>About</h2>
         </div>
-        <h3> This project was brought to you by MurkSec. 
-        It required approximately 80 man hours to complete. 
-        Over this period, 223 commits or changes were done to the code base.  
-        The site is 2,188 lines of PHP, HTML, CSS, and SQL.
-        This came from the writing of 3,874 lines of code and subsequent removal of 1,686 lines of code.
+        <div class="w-3 container w3-mobile">
+        <h3 style="color:white;"> This project was brought to you by MurkSec. </br>
+        It required approximately 80 man hours to complete. </br>
+        Over this period, 223 commits or changes were done to the code base.  </br>
+        The site is 2,188 lines of PHP, HTML, CSS, and SQL.</br>
+        This came from the writing of 3,874 lines of code and subsequent removal of 1,686 lines of code.</br>
+        </h3>
+        </div>
     </div>
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");

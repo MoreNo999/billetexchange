@@ -18,7 +18,9 @@
         <div class="w3-container w3-blue w3-mobile">
             <h2>Contact Us</h2>
         </div>
-        <h3> Send an email to gwa2100@gmail.com </h3>
+        <div class="w-3 container w3-mobile">
+        <h3 style="color:white;"> Send an email to gwa2100@gmail.com </h3>
+        </div>
     </div>
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");

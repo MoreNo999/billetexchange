@@ -34,6 +34,15 @@ class SQLConnectionManager{
 
 }
 
+class MyTuple{
+    public $a;
+    public $b;
+    public function __construct($pa, $pb){
+        $this->a = $pa;
+        $this->b = $pb;
+    }
+}
+
 function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1, $days = -1){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
@@ -76,7 +85,6 @@ function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1, $days = -
     else {
         return FALSE;
     }
-    
     $stmt->close();
 }
 
@@ -162,6 +170,8 @@ function GetMatches(){
     }
 
     //Prepare our sql statement, nullify SQL Injection
+    //Grab all posts by the logged in user to act as the matcher.
+    //Matchers will be stored in $allUsersPosts array.
     if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = 1 and OwnerID = ?')) {
         // Bind parameters (s = string, i = int, b = blob, etc)
         $stmt->bind_param('i', $_SESSION['id']);
@@ -180,29 +190,34 @@ function GetMatches(){
             $matchedPosts = array(); 
             $AllPostsMatches = array();
 
+            //iterate over all of the posts as matcher.
             foreach($allUsersPosts as $post){
                 //We have a list of the posts made by this user.  Now we check for any that match what we want on the SQL Server.
                 if ($searchStmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = 1 and OutAFSC = ? and InAFSC = ? and OutRank = ? and InRank = ? and OutSkillLevel = ? and InSkillLevel = ?')) {
                     // Bind parameters (s = string, i = int, b = blob, etc)
                     //The variables will line up as opposites of the where statement, as we are trying to find a possible match.  InAFSC - OutAFSC.
                     //echo $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel'];
-                    $searchStmt->bind_param('ssiiii', $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel']);
+                    $searchStmt->bind_param('ssssii', $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel']);
                     if ($searchStmt->execute()){
                         // Store the results so we can process them.
                         $searchStmt->store_result();
                         if ($searchStmt->num_rows > 0) {
                             $searchStmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
-                            $foundData = array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status);
                             while ($searchStmt->fetch()){
+                                //For this we are changing from taking all the data, and just grabbing the found ID number of the match.
+                                //$foundData = array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status);
+                                $foundData = $ID;
                                 array_push($matchedPosts, $foundData);
                             }                        
                         //array_push($AllPostsMatches, array($post['ID'], $matchedPosts));
-                        $AllPostsMatches[(string)$post['ID']] = $matchedPosts;
+                        $compiledPosts = new MyTuple($post['ID'], $matchedPosts);
+                        array_push($AllPostsMatches, $compiledPosts);
                         }
                     }
                 }
                 $searchStmt->close();
             }
+            /*   This is taken out for now as we do not use the databases stored matches for anything.
             foreach($AllPostsMatches as $match){
                 foreach($match[1] as $fmatch){
                     if ($matchStmt = $con->prepare("INSERT INTO Matches(PostAKey, PostBKey) VALUES (?, ?)")) {
@@ -215,10 +230,12 @@ function GetMatches(){
                     $matchStmt->close();
                 }
             }
+            */
         } 
         else {
             return FALSE;
         }
+        
         return $AllPostsMatches;
     }
     $stmt->close();

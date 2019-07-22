@@ -38,7 +38,7 @@ if (isset($_SESSION['id']))
                         <input type="text" id="user" name="user" placeholder="Enter Username">
                         <p>Password</p>
                         <input type="password" id="pass" name="pass" placeholder="Enter Password"><br>
-                        <input class='w3-button w3-blue' type="submit" id="submit" value="login">
+                        <input class='w3-button w3-blue' style="justify-content: center" type="submit" id="submit" value="login">
                         <a href="#">Forgot Password?</a>
                         <a href="./new_user.php">Create Account</a>
                         </form>

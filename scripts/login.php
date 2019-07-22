@@ -2,16 +2,9 @@
 session_start();
 require_once("functions.php");
 require_once("../config.php");
-$lDbName = $config["db"]["db1"]["dbname"];
-$lDbUser = $config["db"]["db1"]["username"];
-$lDbPass = $config["db"]["db1"]["password"];
-$lDbHost = $config["db"]["db1"]["host"];
 
-$con = mysqli_connect($lDbHost, $lDbUser, $lDbPass, $lDbName);
-if ( mysqli_connect_errno() ) {
-    //There was a connection error....Die....
-    die ('Failed to connect to MySQL' . mysqli_connect_error());
-}
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
 
 //We are connected now, so lets check for post data
 if (!isset($_POST['user'], $_POST['pass'])) {

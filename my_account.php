@@ -11,30 +11,56 @@
     }
 	$data = GetSessionUserProfileData();
 ?>
-<link rel="stylesheet" type="text/css" href="../../css/home.css?ver=3">
+<link rel="stylesheet/less" type="text/css" href="../../css/my_account.less">
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div id="container">
     <div id="content">
         <div class="w3-container w3-blue w3-mobile">
-            <h2>Profile</h2>
+            <h2>My Account</h2>
         </div>
-		<div style="width:20%; margin-left: 40%; margin-top: 3%; background-color: grey; text-align: center;" class="w3-mobile w3-round w3-modal-content w3-animate-zoom">                  
-            <label class="w3-text-black"><b>Username:<br></b></label>
-            <div class="w3-text-white"><b><?php echo $data['UserName'];?></b></div>
-			<label class="w3-text-black"><br><b>Rank:<br></b></label>
-            <div class="w3-text-white"><b><?php echo $data['Rank'];?></b></div>
-			<label class="w3-text-black"><br><b>Name:<br></b></label>
-            <div class="w3-text-white"><b><?php echo $data['FirstName'];?></b><b> </b><b><?php echo $data['LastName'];?></b></div>
-			<label class="w3-text-black"><br><b>Email:<br></b></label>
-            <div class="w3-text-white"><b><?php echo $data['Email'];?></b></div>
-			<label class="w3-text-black"><br><b>Phone Number:<br></b></label>
-            <div class="w3-text-white"><b><?php echo $data['PhoneNumber'];?></b></div>
-			<label class="w3-text-black"><br><b>Unit:<br></b></label>
-            <div class="w3-text-white"><b><?php echo $data['Unit'];?></b></div>
-			<label class="w3-text-black"><br><b>PAS Code (If Applicable):<br></b></label>
-            <div class="w3-text-white"><b><?php echo $data['PASCode'];?></b><br><br><br></div>
-			<div class="w3-button w3-blue w3-mobile"> <a href="edit_profile.php" title="Edit Profile">Edit Profile</a>
-		</div>
+        <div class="box">
+            <div class="w3-animate-zoom card">
+            <table class="my_table" align="center">
+                <tr>
+                    <th>
+                        <b>Username: </b><?php echo $data['UserName'];?>
+                    </th> 
+                </tr>
+                <tr>
+                    <th> <b>Rank: </b><?php echo $data['Rank'];?>
+                </th>
+                </tr>
+                    <th>
+                        <b>Name: </b><?php echo $data['FirstName'];?> <?php echo $data['LastName'];?>
+                    </th>
+                </tr>
+                    <th>
+                        <b>Email: </b><?php echo $data['Email'];?>
+                    </th>
+                </tr>
+                    <th>
+                        <b>Phone Number: </b><?php echo $data['PhoneNumber'];?>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <b>Unit: </b><?php echo $data['Unit'];?>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <b>PAS Code (If Applicable): </b><?php echo $data['PASCode'];?>
+                    </th>
+                </tr>
+            </table>                  
+            <div class="buttons">
+			 <a href="edit_profile.php" title="Edit Profile"><button>Edit Profile</button></a>
+             <a href="change_password.php" title="Change Password"><button>Change Password</button></a>
+            </div>
+        </div>
+    </div>
+        
 		
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");

@@ -11,7 +11,7 @@
 <body>
         <div class="w3-bar w3-grey">
                 <a href="../../home.php" class="w3-bar-item w3-button w3-mobile w3-large">Dashboard</a>
-                <div class="w3-dropdown-hover">
+                <div class="w3-dropdown-hover w3-mobile">
                         <button class="w3-button w3-large">Browse</button>
                         <div class="w3-dropdown-content w3-bar-block w3-card-4">
                           <a href="../../view_all.php" class="w3-bar-item w3-button">All</a>

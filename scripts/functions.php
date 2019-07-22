@@ -1,5 +1,6 @@
 <?php
 require_once(dirname(__FILE__)."/../config.php");
+session_start();
 
 class SQLConnectionManager{
     public $mDbName;
@@ -33,29 +34,123 @@ class SQLConnectionManager{
 
 }
 
+class MyTuple{
+    public $a;
+    public $b;
+    public function __construct($pa, $pb){
+        $this->a = $pa;
+        $this->b = $pb;
+    }
+}
 
-function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1){
+function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1, $days = -1){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
     //Prepare our sql statement, nullify SQL Injection
-    if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE OwnerID = ? AND Status = ?')) {
+    if ($days == -1){
+        if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE OwnerID = ? AND Status = ?')) {
+            // Bind parameters (s = string, i = int, b = blob, etc)
+            $stmt->bind_param('ii', $userid, $status);
+        }      
+        else{
+            return FALSE;
+        } 
+    }
+    else {
+        if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status=? AND DatePosted BETWEEN DATE(NOW()) - INTERVAL ? DAY AND DATE(NOW())+1 ORDER BY DatePosted DESC')) {
+            // Bind parameters (s = string, i = int, b = blob, etc)
+            $stmt->bind_param('iii', $userid, $status, $days);
+        }
+        else{
+            return FALSE;
+        }
+    }
+    $stmt->execute();
+    // Store the result so we can check if the account exists in the database.
+    $stmt->store_result();
+    if ($stmt->num_rows > 0 and $stmt->num_rows > $first ) {
+        $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+        $returnData = array();
+        $iterator = 0;
+        while ($stmt->fetch() and $iterator < $number + $first){
+            if ($iterator >= $first){
+                array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
+            }
+            ++$iterator;
+        }
+        // Account exists, now we verify the password.
+        // Note: remember to use password_hash in your registration file to store the hashed passwords.
+        return $returnData;
+    } 
+    else {
+        return FALSE;
+    }
+    $stmt->close();
+}
+
+function GetAllBilletPosts($number = 5, $first = 0, $status = 1, $days = -1){
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
+    //Prepare our sql statement, nullify SQL Injection
+    if ($days == -1){
+        if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = ?')) {
+            // Bind parameters (s = string, i = int, b = blob, etc)
+            $stmt->bind_param('i', $status);
+        }      
+        else{
+            return FALSE;
+        } 
+    }
+    else {
+        if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status=? AND DatePosted BETWEEN DATE(NOW()) - INTERVAL ? DAY AND DATE(NOW())+1  ORDER BY DatePosted DESC'))  {
+            // Bind parameters (s = string, i = int, b = blob, etc)
+            $stmt->bind_param('ii', $status, $days);
+        }
+        else{
+            return FALSE;
+        }
+    }
+    $stmt->execute();
+    // Store the result so we can check if the account exists in the database.
+    $stmt->store_result();
+    if ($stmt->num_rows > 0 and $stmt->num_rows > $first ) {
+        $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+        $returnData = array();
+        $iterator = 0;
+        while ($stmt->fetch() and $iterator < $number + $first){
+            if ($iterator >= $first){
+                array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
+            }
+            ++$iterator;
+        }
+        // Account exists, now we verify the password.
+        // Note: remember to use password_hash in your registration file to store the hashed passwords.
+        $stmt->close();
+        return $returnData;
+    } 
+    else {
+        $stmt->close();
+        return FALSE;
+    }
+    
+    $stmt->close();
+}
+
+function GetSingleBilletPost($id){
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
+    //Prepare our sql statement, nullify SQL Injection
+    if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE ID = ?')) {
         // Bind parameters (s = string, i = int, b = blob, etc)
-        $stmt->bind_param('ii', $userid, $status);
+        $stmt->bind_param('i',  $id);
         $stmt->execute();
         // Store the result so we can check if the account exists in the database.
         $stmt->store_result();
-        if ($stmt->num_rows > 0 and $stmt->num_rows > $first ) {
+        if ($stmt->num_rows > 0 ) {
             $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
-            $returnData = array();
-            $iterator = 0;
-            while ($stmt->fetch() and $iterator < $number + $first){
-                if ($iterator >= $first){
-                    array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
-                }
-                ++$iterator;
-            }
-            // Account exists, now we verify the password.
-            // Note: remember to use password_hash in your registration file to store the hashed passwords.
+            $stmt->fetch();
+            $returnData = array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status);
+            // WE now have the post, lets return it.
             return $returnData;
         } 
         else {
@@ -65,36 +160,7 @@ function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1){
     $stmt->close();
 }
 
-function GetAllBilletPosts($number = 5, $first = 0, $status = 1){
-    $conMan = new SQLConnectionManager();
-    $con = $conMan->StartConnection();
-    //Prepare our sql statement, nullify SQL Injection
-    if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = ?')) {
-        // Bind parameters (s = string, i = int, b = blob, etc)
-        $stmt->bind_param('i',  $status);
-        $stmt->execute();
-        // Store the result so we can check if the account exists in the database.
-        $stmt->store_result();
-        if ($stmt->num_rows > 0 and $stmt->num_rows > $first ) {
-            $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
-            $returnData = array();
-            $iterator = 0;
-            while ($stmt->fetch() and $iterator < $number + $first){
-                if ($iterator >= $first){
-                    array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
-                }
-                ++$iterator;
-            }
-            // Account exists, now we verify the password.
-            // Note: remember to use password_hash in your registration file to store the hashed passwords.
-            return $returnData;
-        } 
-        else {
-            return FALSE;
-        }
-    }
-    $stmt->close();
-}
+
 
 function GetMatches(){
     $conMan = new SQLConnectionManager();
@@ -104,6 +170,8 @@ function GetMatches(){
     }
 
     //Prepare our sql statement, nullify SQL Injection
+    //Grab all posts by the logged in user to act as the matcher.
+    //Matchers will be stored in $allUsersPosts array.
     if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = 1 and OwnerID = ?')) {
         // Bind parameters (s = string, i = int, b = blob, etc)
         $stmt->bind_param('i', $_SESSION['id']);
@@ -112,69 +180,63 @@ function GetMatches(){
         $stmt->store_result();
         if ($stmt->num_rows > 0) {
             $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
-            $returnData = array();
+            $allUsersPosts = array();
             
             while ($stmt->fetch()){
-                    array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
+                    array_push($allUsersPosts, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
             }
             //We now have the data, need to run over it and find matches.  This may be expensive :S
             //Currently only matching AFSC Rank SkillLevel
             $matchedPosts = array(); 
             $AllPostsMatches = array();
-            $aSearchKeys = array( "OutAFSC", "InAFSC", "OutRank", "InRank", "OutSkillLevel", "InSkillLevel");
-            $bSearchKeys = array( "InAFSC", "OutAFSC", "InRank", "OutRank", "InSkillLevel", "OutSkillLevel");
-            $flag = True;
 
-            foreach($returnData as $post){
+            //iterate over all of the posts as matcher.
+            foreach($allUsersPosts as $post){
                 //We have a list of the posts made by this user.  Now we check for any that match what we want on the SQL Server.
                 if ($searchStmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = 1 and OutAFSC = ? and InAFSC = ? and OutRank = ? and InRank = ? and OutSkillLevel = ? and InSkillLevel = ?')) {
                     // Bind parameters (s = string, i = int, b = blob, etc)
                     //The variables will line up as opposites of the where statement, as we are trying to find a possible match.  InAFSC - OutAFSC.
-                    $searchStmt->bind_param('ssiiii', $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel']);
-                    $searchStmt->execute();
-                    // Store the results so we can process them.
-                    $searchStmt->store_result();
-                    if ($searchStmt->num_rows > 0) {
-                        $searchStmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
-                        $returnData = array();
-                        
-                        while ($searchStmt->fetch()){
-                            array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
-                            array_push($matchedPosts, $ID);
-                        }                        
-                        array_push($AllPostsMatches, array($post['ID'], $matchedPosts));
+                    //echo $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel'];
+                    $searchStmt->bind_param('ssssii', $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel']);
+                    if ($searchStmt->execute()){
+                        // Store the results so we can process them.
+                        $searchStmt->store_result();
+                        if ($searchStmt->num_rows > 0) {
+                            $searchStmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+                            while ($searchStmt->fetch()){
+                                //For this we are changing from taking all the data, and just grabbing the found ID number of the match.
+                                //$foundData = array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status);
+                                $foundData = $ID;
+                                array_push($matchedPosts, $foundData);
+                            }                        
+                        //array_push($AllPostsMatches, array($post['ID'], $matchedPosts));
+                        $compiledPosts = new MyTuple($post['ID'], $matchedPosts);
+                        array_push($AllPostsMatches, $compiledPosts);
+                        }
                     }
-                    else {
-                        return False;
-                    }
-                }
-                else {
-                    return False;
                 }
                 $searchStmt->close();
             }
+            /*   This is taken out for now as we do not use the databases stored matches for anything.
             foreach($AllPostsMatches as $match){
                 foreach($match[1] as $fmatch){
                     if ($matchStmt = $con->prepare("INSERT INTO Matches(PostAKey, PostBKey) VALUES (?, ?)")) {
                         // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
                         $matchStmt->bind_param('ii', $match[0], $fmatch);
                         if ($matchStmt->execute()){
-                            return $returnData;
-                        }
-                        else {
-                            return False;
                         }
                     }
-                    else{
-                        return False;
-                    }
+                    
                     $matchStmt->close();
                 }
             }
+            */
         } 
         else {
             return FALSE;
         }
+        
+        return $AllPostsMatches;
     }
     $stmt->close();
 }
@@ -239,49 +301,51 @@ function UpdateSessionUserProfileData($pPostData){
     }
 }
 
-
-function GetAllCards($columns=3){
-    $data = GetAllBilletPosts(99,0,1);
+function CardifyPost($data, $columns =3){
     $currentRow = 0;
     $currentColumn = 0;
     $cardCount = 0;
-    echo '<div class="dashboard-cards w3-container">';
+    echo '<div>';
         for ($item = 0; $item < count($data); $item++){
-            echo '  <div class="row w3-container w3-cell">';
-            for($cc = $it; $cc < count($data);$cc+=$columns){
-                echo '      <div class="column">';
+            echo '  <div>';
+            for($cc = 0; $cc < count($data);$cc+=$columns){   //for($cc = $it; $cc < count($data);$cc+=$columns){
+                echo '      <div class="card_row">';
                 for ($it = 0; $it < $columns; $it++){
-                    $outputVar = "<h2> <a href='./view_post.php?Card=" . $cardCount . "'>View Post</a></h2></br>";
-                    $outputVar .= "<table style='border-left: 1px;'>";
+                    $outputVar = "<a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'><button class='button'><span>View Post</span></button></a></br>";
+                    $outputVar .= "<table class='data_table'>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Position #</th><th>" . $data[$cardCount]["PositionNumber"] . "</th>";
-                    $outputVar .= "<th>Timestamp</th><th>" . $data[$cardCount]["DatePosted"] . "</th>";
+                    $outputVar .= "<th class='data_name'>Position #: <mark class='data'>" . $data[$cardCount]["PositionNumber"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>Timestamp: <mark class='data'>" . $data[$cardCount]["DatePosted"] . "</mark></th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out AFSC</th><th>" . $data[$cardCount]["OutAFSC"] . "</th>";
-                    $outputVar .= "<th>In AFSC</th><th>" . $data[$cardCount]["InAFSC"] . "</th>";
+                    $outputVar .= "<th class='data_name'>Out AFSC: <mark class='data'>" . $data[$cardCount]["OutAFSC"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In AFSC: <mark class='data'>" . $data[$cardCount]["InAFSC"] . "</mark></th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out Rank</th><th>" . $data[$cardCount]["OutRank"] . "</th>";
-                    $outputVar .= "<th>In Rank</th><th>" . $data[$cardCount]["InRank"] . "</th>";
+                    $outputVar .= "<th class='data_name'>Out Rank: <mark class='data'>" . $data[$cardCount]["OutRank"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In Rank: <mark class='data'>" . $data[$cardCount]["InRank"] . "</mark></th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out SEI</th><th>" . $data[$cardCount]["OutSEI"] . "</th>";
-                    $outputVar .= "<th>In SEI</th><th>" . $data[$cardCount]["InSEI"] . "</th>";
+                    $outputVar .= "<th class='data_name'>Out SEI: <mark class='data'>" . $data[$cardCount]["OutSEI"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In SEI: <mark class='data'>" . $data[$cardCount]["InSEI"] . "</mark></th>";
                     $outputVar .= "</tr>";
 
                     $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out Level</th><th>" . $data[$cardCount]["OutSkillLevel"] . "</th>";
-                    $outputVar .= "<th>In Level</th><th>" . $data[$cardCount]["InSkillLevel"] . "</th>";
+                    $outputVar .= "<th class='data_name'>Out Level: <mark class='data'>" . $data[$cardCount]["OutSkillLevel"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In Level: <mark class='data'>" . $data[$cardCount]["InSkillLevel"] . "</mark></th>";
                     $outputVar .= "</tr>";
 
                     
                     $outputVar .= "</table>";
-                    echo '          <div class="card w3-round-xxlarge w3-animate-zoom w3-cell"><p>' . $outputVar .'</p></div>';
+                    if ($data[$cardCount] == ""){
+                        $cardCount++;
+                        break;
+                    }
+                    echo '          <div class="w3-round-xlarge w3-animate-zoom card"><p>' . $outputVar .'</p></div>';
                     $cardCount++;
                     $item++;
                 }
@@ -292,59 +356,115 @@ function GetAllCards($columns=3){
     echo '</div>';
 }
 
+function GetAllCards($columns=3){
+    $data = GetAllBilletPosts(99,0,1);
+    CardifyPost($data,$columns);
+}
+
 function GetDashboardCards($columns=3){
     $data = GetBilletPosts($_SESSION['id'],99,0,1);
-    $currentRow = 0;
-    $currentColumn = 0;
-    $cardCount = 0;
-    echo '<div class="dashboard-cards w3-container">';
-        for ($item = 0; $item < count($data); $item++){
-            echo '  <div class="row w3-container w3-cell">';
-            for($cc = $it; $cc < count($data);$cc+=$columns){
-                echo '      <div class="column">';
-                for ($it = 0; $it < $columns; $it++){
-                    $outputVar = "<h2> <a href='./view_post.php?Card=" . $cardCount . "'>View Post</a></h2></br>";
-                    $outputVar .= "<table style='border-left: 1px;'>";
+    CardifyPost($data,$columns);
+}
 
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th>Position #</th><th>" . $data[$cardCount]["PositionNumber"] . "</th>";
-                    $outputVar .= "<th>Timestamp</th><th>" . $data[$cardCount]["DatePosted"] . "</th>";
-                    $outputVar .= "</tr>";
+function GetMatchesCards($columns=3, $id){
+    $data = GetMatches();
+    echo var_dump($data[$id]);
+    CardifyPost($data[$id], $columns);
+}
 
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out AFSC</th><th>" . $data[$cardCount]["OutAFSC"] . "</th>";
-                    $outputVar .= "<th>In AFSC</th><th>" . $data[$cardCount]["InAFSC"] . "</th>";
-                    $outputVar .= "</tr>";
+function GetRecentCards($columns=3, $days = 7){
+    $data = GetAllBilletPosts(99, 0,1, $days);
+    CardifyPost($data,$cols);
+}
 
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out Rank</th><th>" . $data[$cardCount]["OutRank"] . "</th>";
-                    $outputVar .= "<th>In Rank</th><th>" . $data[$cardCount]["InRank"] . "</th>";
-                    $outputVar .= "</tr>";
+//returns only username
+function GetUserNameFromID($userID){
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
 
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out SEI</th><th>" . $data[$cardCount]["OutSEI"] . "</th>";
-                    $outputVar .= "<th>In SEI</th><th>" . $data[$cardCount]["InSEI"] . "</th>";
-                    $outputVar .= "</tr>";
+    //Prepare our sql statement, nullify SQL Injection
+    if ($stmt = $con->prepare('SELECT * FROM Accounts WHERE UserID = ?')) {
+        // Bind parameters (s = string, i = int, b = blob, etc)
+        $stmt->bind_param('i', $userID);
+        $stmt->execute();
+        // Store the result so we can check if the account exists in the database.
+        $stmt->store_result();
+        if ($stmt->num_rows != 0) {
+            $stmt->bind_result(	$UserID, $UserName, $Passwd, $FirstName, $LastName, $Rank, $Unit, $Email, $PhoneNumber, $PASCode);
+            $returnData = array();
+            
+            $stmt->fetch();
+            $returnData = $UserName;
+            
+            // Account exists, now we verify the password.
+            // Note: remember to use password_hash in your registration file to store the hashed passwords.
+            return $returnData;
+        } 
+        else {
+            return FALSE;
+        }
+    }
+    $stmt->close();
+}
 
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th>Out Level</th><th>" . $data[$cardCount]["OutSkillLevel"] . "</th>";
-                    $outputVar .= "<th>In Level</th><th>" . $data[$cardCount]["InSkillLevel"] . "</th>";
-                    $outputVar .= "</tr>";
+//Returns userid, username, email, firstname, lastname, rank, phonenumber, and unit.
+function GetUserPublicDataFromID($userID){
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
 
-                    
-                    $outputVar .= "</table>";
-                    if ($data[$cardCount] == ""){
-                        $cardCount++;
-                        break;
-                    }
-                    echo '          <div class="card w3-round-xxlarge w3-animate-zoom w3-cell"><p>' . $outputVar .'</p></div>';
-                    $cardCount++;
-                    $item++;
-                }
-                echo '      </div>';
+    //Prepare our sql statement, nullify SQL Injection
+    if ($stmt = $con->prepare('SELECT * FROM Accounts WHERE UserID = ?')) {
+        // Bind parameters (s = string, i = int, b = blob, etc)
+        $stmt->bind_param('i', $userID);
+        $stmt->execute();
+        // Store the result so we can check if the account exists in the database.
+        $stmt->store_result();
+        if ($stmt->num_rows != 0) {
+            $stmt->bind_result(	$UserID, $UserName, $Passwd, $FirstName, $LastName, $Rank, $Unit, $Email, $PhoneNumber, $PASCode);
+            
+            $stmt->fetch();
+            $returnData = array( 'UserID'=>$UserID, 'UserName'=>$UserName, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'Rank'=>$Rank, 'Email'=>$Email, 'PhoneNumber'=>$PhoneNumber, 'Unit'=>$Unit);
+            
+            // Account exists, now we verify the password.
+            // Note: remember to use password_hash in your registration file to store the hashed passwords.
+            return $returnData;
+        } 
+        else {
+            return FALSE;
+        }
+    }
+    $stmt->close();
+}
+
+function ChangePassword($pPostData){
+    if (!isset($_SESSION['id'])){
+        die ('USER NOT LOGGED IN');
+    }
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
+    $data = GetSessionUserProfileData();
+    echo password_verify($pPostData['oldPassword'], $data['Passwd']);
+    if (password_verify($pPostData['oldPassword'], $data['Passwd'])){
+        if ($stmt = $con->prepare("UPDATE Accounts SET Passwd=? WHERE UserID=?")) {
+            // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
+            //Store new password
+            $stmt->bind_param('si', password_hash($pPostData['newPassword'], PASSWORD_DEFAULT), $_SESSION["id"]);
+            if ($stmt->execute()){
+                return True;
             }
-            echo '  </div>';
-        }    
-    echo '</div>';
+            else{
+                return False;            
+            }
+            return False;
+            $stmt->close();
+        }
+        else{
+            return False;
+        }
+    }
+    else{
+        echo "PASSWORD MISMATCH<br>";
+        return False;
+    }
 }
 ?>

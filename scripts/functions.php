@@ -39,7 +39,7 @@ function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1, $days = -
     $con = $conMan->StartConnection();
     //Prepare our sql statement, nullify SQL Injection
     if ($days == -1){
-        if (!$stmt = $con->prepare('SELECT * FROM BilletEntry WHERE OwnerID = ? AND Status = ?')) {
+        if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE OwnerID = ? AND Status = ?')) {
             // Bind parameters (s = string, i = int, b = blob, etc)
             $stmt->bind_param('ii', $userid, $status);
         }      
@@ -48,7 +48,7 @@ function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1, $days = -
         } 
     }
     else {
-        if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE OwnerID = ? AND Status = ? AND DatePosted >= DATEADD(day,?,GETDATE() ORDER BY DatePosted')) {
+        if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status=? AND DatePosted BETWEEN DATE(NOW()) - INTERVAL ? DAY AND DATE(NOW())+1 ORDER BY DatePosted DESC')) {
             // Bind parameters (s = string, i = int, b = blob, etc)
             $stmt->bind_param('iii', $userid, $status, $days);
         }
@@ -80,34 +80,51 @@ function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1, $days = -
     $stmt->close();
 }
 
-function GetAllBilletPosts($number = 5, $first = 0, $status = 1){
+function GetAllBilletPosts($number = 5, $first = 0, $status = 1, $days = -1){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
     //Prepare our sql statement, nullify SQL Injection
-    if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = ?')) {
-        // Bind parameters (s = string, i = int, b = blob, etc)
-        $stmt->bind_param('i',  $status);
-        $stmt->execute();
-        // Store the result so we can check if the account exists in the database.
-        $stmt->store_result();
-        if ($stmt->num_rows > 0 and $stmt->num_rows > $first ) {
-            $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
-            $returnData = array();
-            $iterator = 0;
-            while ($stmt->fetch() and $iterator < $number + $first){
-                if ($iterator >= $first){
-                    array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
-                }
-                ++$iterator;
-            }
-            // Account exists, now we verify the password.
-            // Note: remember to use password_hash in your registration file to store the hashed passwords.
-            return $returnData;
+    if ($days == -1){
+        if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = ?')) {
+            // Bind parameters (s = string, i = int, b = blob, etc)
+            $stmt->bind_param('i', $status);
+        }      
+        else{
+            return FALSE;
         } 
-        else {
+    }
+    else {
+        if ($stmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status=? AND DatePosted BETWEEN DATE(NOW()) - INTERVAL ? DAY AND DATE(NOW())+1  ORDER BY DatePosted DESC'))  {
+            // Bind parameters (s = string, i = int, b = blob, etc)
+            $stmt->bind_param('ii', $status, $days);
+        }
+        else{
             return FALSE;
         }
     }
+    $stmt->execute();
+    // Store the result so we can check if the account exists in the database.
+    $stmt->store_result();
+    if ($stmt->num_rows > 0 and $stmt->num_rows > $first ) {
+        $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+        $returnData = array();
+        $iterator = 0;
+        while ($stmt->fetch() and $iterator < $number + $first){
+            if ($iterator >= $first){
+                array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
+            }
+            ++$iterator;
+        }
+        // Account exists, now we verify the password.
+        // Note: remember to use password_hash in your registration file to store the hashed passwords.
+        $stmt->close();
+        return $returnData;
+    } 
+    else {
+        $stmt->close();
+        return FALSE;
+    }
+    
     $stmt->close();
 }
 
@@ -335,11 +352,11 @@ function GetDashboardCards($columns=3){
 function GetMatchesCards($columns=3, $id){
     $data = GetMatches();
     echo var_dump($data[$id]);
-    echo CardifyPost($data[$id], $columns);
+    CardifyPost($data[$id], $columns);
 }
 
 function GetRecentCards($columns=3, $days = 7){
-    $data = GetBilletPosts($_SESSION['id'], 99, 0,1, $days);
+    $data = GetAllBilletPosts(99, 0,1, $days);
     CardifyPost($data,$cols);
 }
 

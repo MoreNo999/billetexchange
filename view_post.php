@@ -19,7 +19,23 @@
         <div class="w3-container w3-blue w3-mobile">
             <h2>View Post</h2>
         </div>
-        <div style="width:20%; margin-left: 40%; margin-top: 3%; background-color: grey; text-align: center;" class="w3-mobile w3-round w3-modal-content w3-animate-zoom">                  
+
+<style>
+.box{
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+  text-align: center;
+}
+.myform{
+  background-color: grey;
+  padding: 5px;
+  border-radius: 8px;
+  
+}
+</style>
+    <div class="box">
+        <div class="w3-animate-zoom myform">                  
             <label class="w3-text-black"><b>Posted By: <br></b></label>
             <div class="w3-text-white"><b><a href=view_profile.php?profile=<?php echo $data['OwnerID'];?>><?php echo GetUserNameFromID($data['OwnerID']);?></a></b></div>
             <label class="w3-text-black"><br><b>Offered AFSC:<br></b></label>
@@ -46,6 +62,8 @@
             <div class="w3-text-white"><b><?php echo $data['PositionNumber'];?></b><br><br></div>
             <div class="w3-button w3-blue w3-mobile"><b><a href=view_matches.php?Card=<?php echo $_GET['Card'];?>><?php echo "View Matches";?></b></div>
         </div>
+    </div>
+        
 
         ["ID"]
         "OwnerID"]=> int(1) 

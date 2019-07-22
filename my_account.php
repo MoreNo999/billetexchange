@@ -20,7 +20,7 @@
             <h2>My Account</h2>
         </div>
         <div class="box">
-            <div class="w3-animate-zoom card w3-mobile">
+            <div class="w3-animate-zoom card">
             <table class="my_table" align="center">
                 <tr>
                     <th>

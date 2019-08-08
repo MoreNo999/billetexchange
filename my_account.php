@@ -19,7 +19,7 @@
         <div class="w3-container w3-blue w3-mobile">
             <h2>My Account</h2>
         </div>
-        <div class="box">
+        <br><div class="box">
             <div class="w3-animate-zoom card">
             <table class="my_table" align="center">
                 <tr>

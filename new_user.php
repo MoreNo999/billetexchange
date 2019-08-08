@@ -69,7 +69,8 @@ body {
   <label for="unit" class="sr-only">Unit</label>
   <input class="form-control" type="text" id="unit" name="unit" minlength=3 maxlength=20 title="minimum length of 3 and a maximum of 40" required placeholder="Enter Unit">
   <label for="phone" class="sr-only">Phone number (optional)</label>
-  <input class="form-control" type="text" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" title="Format: 123-456-7890"><br><br>  
+  <script src="js/phone_complete.js"></script>
+  <input class="form-control" type="text" id="phone" name="phone" pattern="([0-9]{3})[0-9]{3}-[0-9]{4}" placeholder="Format: (123)456-7890" title="Format: (123)456-7890" onkeydown="javascript:backspacerDOWN(this,event);" onkeyup="javascript:backspacerUP(this,event);"><br><br>  
   <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
 </form>
 

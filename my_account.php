@@ -48,11 +48,17 @@
                         <b>Unit: </b><?php echo $data['Unit'];?>
                     </th>
                 </tr>
+				<tr>
+                    <th>
+                        <b>MAJCOM: </b><?php echo $data['Majcom'];?>
+                    </th>
+                </tr>
                 <tr>
                     <th>
                         <b>PAS Code (If Applicable): </b><?php echo $data['PASCode'];?>
                     </th>
                 </tr>
+				
             </table>                  
             <div class="buttons">
 			 <a href="edit_profile.php" title="Edit Profile"><button class="w3-button w3-blue">Edit Profile</button></a>

@@ -160,7 +160,25 @@ function GetSingleBilletPost($id){
     $stmt->close();
 }
 
+function DeletePost($pPostID){
+    if ($stmt = $con->prepare("UPDATE Accounts SET Status = ? WHERE ID = ? and OwnerID = ?")) {
+        // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 
+        $stmt->bind_param('iii', 3, $pPostID, $_SESSION['id']);
+
+        if ($stmt->execute()){
+            return True;
+        }
+        else{
+            return False;            
+        }
+        return False;
+        $stmt->close();
+    }
+    else{
+        return False;
+    }
+}
 
 function GetMatches(){
     $conMan = new SQLConnectionManager();

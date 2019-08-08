@@ -16,7 +16,7 @@
 <div id="container">
     <div id="content">
         <div class="w3-container w3-blue w3-mobile">
-            <h2>Recent Posts</h2>
+            <h2>Support</h2>
         </div>
         <div class="w-3 container w3-mobile">
         <h3 style="color:white;"> Guide </h3>
@@ -24,7 +24,7 @@
         <h3 style="color:white;">
         This site was created to allow Air Force leaders to publish billet swaps they are willing to make in their units. This will allow for a quicker and more dynamic ability to manage manpower at the unit level. </br></br>
 
-        After creating an account and logging in users will be able to: Browse all billets, Post a swap criteria, View matches. </br></br>
+        After creating an account and logging in users will be able to: Browse all billets, Post swap criteria, View matches. </br></br>
 
         The Dashboard page allows users to view or delete any post they have made. </br></br>
 

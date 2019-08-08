@@ -26,7 +26,7 @@
                 array_push($data, GetSingleBilletPost($aMatch));
             } 
         }
-        CardifyPost($data);
+        ListifyPost($data);
         ?>
     </div>
     <?php

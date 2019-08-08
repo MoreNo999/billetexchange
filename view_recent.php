@@ -18,7 +18,7 @@
         <div class="w3-container w3-blue w3-mobile">
             <h2>Recent Posts</h2>
         </div>
-        <?php CardifyPost(GetAllBilletPosts(99,0,1,7),3);?>
+        <?php ListifyPost(GetAllBilletPosts(99,0,1,7));?>
     </div>
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");

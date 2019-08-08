@@ -1,4 +1,4 @@
-<?php
+000000000<?php
 require_once(dirname(__FILE__)."/../config.php");
 session_start();
 
@@ -356,9 +356,87 @@ function CardifyPost($data, $columns =3){
     echo '</div>';
 }
 
-function GetAllCards($columns=3){
+function ListifyPost($data){
+    echo '<div>';
+    $outputvar = "";
+    foreach($data as $entry){
+        $outputVar .= "Position #: <mark class='data'>" . $entry["PositionNumber"] . " | ";
+        $outputVar .= "Timestamp: <mark class='data'>" . $entry["DatePosted"] . " | ";
+        $outputVar .= "Out AFSC: <mark class='data'>" . $entry["OutAFSC"] . " | ";
+        $outputVar .= "In AFSC: <mark class='data'>" . $entry["InAFSC"] . " | ";
+        $outputVar .= "Out Rank: <mark class='data'>" . $entry["OutRank"] . " | ";
+        $outputVar .= "In Rank: <mark class='data'>" . $entry["InRank"] . " | ";
+        $outputVar .= "Out SEI: <mark class='data'>" . $entry["OutSEI"] . " | ";
+        $outputVar .= "In SEI: <mark class='data'>" . $entry["InSEI"] . " | ";
+        $outputVar .= "Out Level: <mark class='data'>" . $entry["OutSkillLevel"] . " | ";
+        $outputVar .= "In Level: <mark class='data'>" . $entry["InSkillLevel"] . " | ";
+        $outputVar .= "<a href='./view_post.php?Card=" . $entry["ID"] . "'><button class='button'><span>View Post</span></button></a></br>";
+    }
+    echo '<div class="w3-round-xlarge w3-animate-zoom card"><p>' . $outputVar .'</p></div>';
+    //echo $outputVar;
+}
+
+/* function ListifyPost($data){
+    $currentRow = 0;
+    $currentColumn = 0;
+    $cardCount = 0;
+    echo '<div>';
+        for ($item = 0; $item < count($data); $item++){
+            echo '  <div>';
+            for($cc = 0; $cc < count($data);$cc+=$columns){  
+                echo '      <div class="card_row">';
+                for ($it = 0; $it < $columns; $it++){
+                    $outputVar = "<a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'><button class='button'><span>View Post</span></button></a></br>";
+                    $outputVar .= "<table class='data_table'>";
+
+                    $outputVar .= "<tr>";
+                    $outputVar .= "<th class='data_name'>Position #: <mark class='data'>" . $data[$cardCount]["PositionNumber"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>Timestamp: <mark class='data'>" . $data[$cardCount]["DatePosted"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>Out AFSC: <mark class='data'>" . $data[$cardCount]["OutAFSC"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In AFSC: <mark class='data'>" . $data[$cardCount]["InAFSC"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>Out Rank: <mark class='data'>" . $data[$cardCount]["OutRank"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In Rank: <mark class='data'>" . $data[$cardCount]["InRank"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>Out SEI: <mark class='data'>" . $data[$cardCount]["OutSEI"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In SEI: <mark class='data'>" . $data[$cardCount]["InSEI"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>Out Level: <mark class='data'>" . $data[$cardCount]["OutSkillLevel"] . "</mark></th>";
+                    $outputVar .= "<th class='data_name'>In Level: <mark class='data'>" . $data[$cardCount]["InSkillLevel"] . "</mark></th>";
+                    $outputVar .= "</tr>";
+
+                    $outputVar .= "</table>";
+                    if ($data[$cardCount] == ""){
+                        $cardCount++;
+                        break;
+                    }
+                    echo '          <div class="w3-round-xlarge w3-animate-zoom card"><p>' . $outputVar .'</p></div>';
+                    $cardCount++;
+                    $item++;
+                }
+                echo '      </div>';
+            }
+            echo '  </div>';
+        }    
+    echo '</div>';
+} */
+
+function GetAllPostList(){
     $data = GetAllBilletPosts(99,0,1);
-    CardifyPost($data,$columns);
+    ListifyPost($data);
+}
+
+function GetDashboardPostList(){
+    $data = GetBilletPosts($_SESSION['id'],99,0,1);
+    ListifyPost($data);
+}
+
+function GetMatchesPostList($columns=3, $id){
+    $data = GetMatches();
+    echo var_dump($data[$id]);
+    ListifyPost($data[$id]);
+}
+
+function GetRecentPostList($columns=3, $days = 7){
+    $data = GetAllBilletPosts(99, 0,1, $days);
+    ListifyPost($data);
 }
 
 function GetDashboardCards($columns=3){

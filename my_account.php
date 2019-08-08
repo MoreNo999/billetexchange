@@ -11,7 +11,7 @@
     }
 	$data = GetSessionUserProfileData();
 ?>
-<link rel="stylesheet/less" type="text/css" href="../../css/my_account.less">
+<link rel="stylesheet/less" type="text/css" href="../../css/my_account.less?ver=1.1">
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div id="container">
@@ -55,9 +55,9 @@
                 </tr>
             </table>                  
             <div class="buttons">
-			 <a href="edit_profile.php" title="Edit Profile"><button>Edit Profile</button></a>
-             <a href="change_password.php" title="Change Password"><button>Change Password</button></a>
-            </div>
+			 <a href="edit_profile.php" title="Edit Profile"><button class="w3-button w3-blue">Edit Profile</button></a>
+             <a href="change_password.php" title="Change Password"><button class="w3-button w3-blue">Change Password</button></a>
+            </div><br>
         </div>
     </div>
         

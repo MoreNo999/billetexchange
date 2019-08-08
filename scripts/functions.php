@@ -1,4 +1,4 @@
-000000000<?php
+<?php
 require_once(dirname(__FILE__)."/../config.php");
 session_start();
 

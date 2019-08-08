@@ -161,21 +161,26 @@ function GetSingleBilletPost($id){
 }
 
 function DeletePost($pPostID){
-    if ($stmt = $con->prepare("UPDATE Accounts SET Status = ? WHERE ID = ? and OwnerID = ?")) {
+    $conMan = new SQLConnectionManager();
+    $con = $conMan->StartConnection();
+    //Prepare our sql statement, nullify SQL Injection
+    if ($stmt = $con->prepare("UPDATE BilletEntry SET Status = ? WHERE ID = ? and OwnerID = ?")) {
         // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 
-        $stmt->bind_param('iii', 3, $pPostID, $_SESSION['id']);
+        $stmt->bind_param('iii', $a = 3, $pPostID, $_SESSION['id']);
 
         if ($stmt->execute()){
             return True;
         }
         else{
+            echo "Stmt exec fail";
             return False;            
         }
         return False;
         $stmt->close();
     }
     else{
+        echo "stmt prep fail";
         return False;
     }
 }
@@ -388,53 +393,15 @@ function ListifyPost($data){
         $outputVar .= "In SEI: <mark class='data'>" . $entry["InSEI"] . " | ";
         $outputVar .= "Out Level: <mark class='data'>" . $entry["OutSkillLevel"] . " | ";
         $outputVar .= "In Level: <mark class='data'>" . $entry["InSkillLevel"] . " | ";
-        $outputVar .= "<a href='./view_post.php?Card=" . $entry["ID"] . "'><button class='button'><span>View Post</span></button></a></br>";
+        $outputVar .= "<a href='./view_post.php?Card=" . $entry["ID"] . "'><button class='button'><span>View Post</span></button></a>";
+        if ($entry["OwnerID"] == $_SESSION['id']){
+            $outputVar .= "<a href='./scripts/DeletePost.php?PostID=" . $entry["ID"] . "'><button class='button'><span>Delete Post</span></button></a>";
+        }
+        $outputVar .= "</br>";
     }
     echo '<div class="w3-round-xlarge w3-animate-zoom card"><p>' . $outputVar .'</p></div>';
     //echo $outputVar;
 }
-
-/* function ListifyPost($data){
-    $currentRow = 0;
-    $currentColumn = 0;
-    $cardCount = 0;
-    echo '<div>';
-        for ($item = 0; $item < count($data); $item++){
-            echo '  <div>';
-            for($cc = 0; $cc < count($data);$cc+=$columns){  
-                echo '      <div class="card_row">';
-                for ($it = 0; $it < $columns; $it++){
-                    $outputVar = "<a href='./view_post.php?Card=" . $data[$cardCount]["ID"] . "'><button class='button'><span>View Post</span></button></a></br>";
-                    $outputVar .= "<table class='data_table'>";
-
-                    $outputVar .= "<tr>";
-                    $outputVar .= "<th class='data_name'>Position #: <mark class='data'>" . $data[$cardCount]["PositionNumber"] . "</mark></th>";
-                    $outputVar .= "<th class='data_name'>Timestamp: <mark class='data'>" . $data[$cardCount]["DatePosted"] . "</mark></th>";
-                    $outputVar .= "<th class='data_name'>Out AFSC: <mark class='data'>" . $data[$cardCount]["OutAFSC"] . "</mark></th>";
-                    $outputVar .= "<th class='data_name'>In AFSC: <mark class='data'>" . $data[$cardCount]["InAFSC"] . "</mark></th>";
-                    $outputVar .= "<th class='data_name'>Out Rank: <mark class='data'>" . $data[$cardCount]["OutRank"] . "</mark></th>";
-                    $outputVar .= "<th class='data_name'>In Rank: <mark class='data'>" . $data[$cardCount]["InRank"] . "</mark></th>";
-                    $outputVar .= "<th class='data_name'>Out SEI: <mark class='data'>" . $data[$cardCount]["OutSEI"] . "</mark></th>";
-                    $outputVar .= "<th class='data_name'>In SEI: <mark class='data'>" . $data[$cardCount]["InSEI"] . "</mark></th>";
-                    $outputVar .= "<th class='data_name'>Out Level: <mark class='data'>" . $data[$cardCount]["OutSkillLevel"] . "</mark></th>";
-                    $outputVar .= "<th class='data_name'>In Level: <mark class='data'>" . $data[$cardCount]["InSkillLevel"] . "</mark></th>";
-                    $outputVar .= "</tr>";
-
-                    $outputVar .= "</table>";
-                    if ($data[$cardCount] == ""){
-                        $cardCount++;
-                        break;
-                    }
-                    echo '          <div class="w3-round-xlarge w3-animate-zoom card"><p>' . $outputVar .'</p></div>';
-                    $cardCount++;
-                    $item++;
-                }
-                echo '      </div>';
-            }
-            echo '  </div>';
-        }    
-    echo '</div>';
-} */
 
 function GetAllPostList(){
     $data = GetAllBilletPosts(99,0,1);

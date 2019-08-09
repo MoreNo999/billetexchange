@@ -11,7 +11,7 @@
     }
 	$data = GetSessionUserProfileData();
 ?>
-<link rel="stylesheet/less" type="text/css" href="../../css/my_account.less?ver=1.2">
+<link rel="stylesheet/less" type="text/css" href="../../css/my_account.less?ver=1.1.1">
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div id="container">
@@ -24,38 +24,38 @@
             <table class="my_table" align="center">
                 <tr>
                     <th>
-                        <b>Username: </b><?php echo $data['UserName'];?>
-                    </th> 
+                        <b style="color:white">Username: </b><br><?php echo $data['UserName'];?>
+                    </th>
                 </tr>
                 <tr>
-                    <th> <b>Rank: </b><?php echo $data['Rank'];?>
+                    <th> <b style="color:white">Rank: </b><br><?php echo $data['Rank'];?>
                 </th>
                 </tr>
                     <th>
-                        <b>Name: </b><?php echo $data['FirstName'];?> <?php echo $data['LastName'];?>
+                        <b style="color:white">Name: </b><br><?php echo $data['FirstName'];?> <?php echo $data['LastName'];?>
                     </th>
                 </tr>
                     <th>
-                        <b>Email: </b><?php echo $data['Email'];?>
+                        <b style="color:white">Email: </b><br><?php echo $data['Email'];?>
                     </th>
                 </tr>
                     <th>
-                        <b>Phone Number: </b><?php echo $data['PhoneNumber'];?>
+                        <b style="color:white">Phone Number: </b><br><?php echo $data['PhoneNumber'];?>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        <b>Unit: </b><?php echo $data['Unit'];?>
+                        <b style="color:white">Unit: </b><br><?php echo $data['Unit'];?>
                     </th>
                 </tr>
 				<tr>
                     <th>
-                        <b>MAJCOM: </b><?php echo $data['Majcom'];?>
+                        <b style="color:white">MAJCOM: </b><br><?php echo $data['Majcom'];?>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        <b>PAS Code (If Applicable): </b><?php echo $data['PASCode'];?>
+                        <b style="color:white">PAS Code (If Applicable): </b><br><?php echo $data['PASCode'];?>
                     </th>
                 </tr>
 				

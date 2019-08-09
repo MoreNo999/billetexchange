@@ -311,6 +311,13 @@ function UpdateSessionUserProfileData($pPostData){
         $stmt->bind_param('ssssssssi', htmlspecialchars($pPostData['email'], ENT_NOQUOTES), htmlspecialchars($pPostData['unit'], ENT_NOQUOTES), htmlspecialchars($pPostData['phone'], ENT_NOQUOTES), htmlspecialchars($pPostData['firstName'], ENT_NOQUOTES), htmlspecialchars($pPostData['lastName'], ENT_NOQUOTES), $pPostData['rank'], htmlspecialchars($pPostData['PASCode'], ENT_NOQUOTES), htmlspecialchars($pPostData['Majcom'], ENT_NOQUOTES), $_SESSION['id']);
 
         if ($stmt->execute()){
+            $id = $_SESSION['id'];
+            $user = $_SESSION['name'];
+            session_regenerate_id();
+            $_SESSION['loggedin'] = TRUE;
+            $_SESSION['name'] = $user;
+            $_SESSION['majcom'] = $pPostData['Majcom'];
+            $_SESSION['id'] = $id;
             return True;
         }
         else{

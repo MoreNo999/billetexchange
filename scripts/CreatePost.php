@@ -29,7 +29,7 @@ $Status = 1;
 $Majcom = $_POST['Majcom'];
 
 //Prepare our sql statement, nullify SQL Injection
-if ($stmt = $con->prepare("INSERT INTO BilletEntry(OwnerID, OutAFSC, OutRank, OutSEI, OutSkillLevel, InAFSC, InRank, InSEI, InSkillLevel, PositionNumber, Description, Views, Clicks, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+if ($stmt = $con->prepare("INSERT INTO BilletEntry(OwnerID, OutAFSC, OutRank, OutSEI, OutSkillLevel, InAFSC, InRank, InSEI, InSkillLevel, PositionNumber, Description, Views, Clicks, Status, Majcom) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
 	// Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
     $stmt->bind_param('isssisssissiiis', $OwnerID, htmlspecialchars(strtoupper($OutAFSC), ENT_NOQUOTES), htmlspecialchars($OutRank, ENT_NOQUOTES), htmlspecialchars(strtoupper($OutSEI), ENT_NOQUOTES), $OutSkillLevel, htmlspecialchars(strtoupper($InAFSC), ENT_NOQUOTES), htmlspecialchars($InRank, ENT_NOQUOTES), htmlspecialchars(strtoupper($InSEI), ENT_NOQUOTES), $InSkillLevel, htmlspecialchars($PositionNumber, ENT_NOQUOTES), htmlspecialchars($Description, ENT_NOQUOTES), $Views, $Clicks, $Status, htmlspecialchars($Majcom, ENT_NOQUOTES));
     if ($stmt->execute()){

@@ -476,7 +476,7 @@ function GetUserNameFromID($userID){
         // Store the result so we can check if the account exists in the database.
         $stmt->store_result();
         if ($stmt->num_rows != 0) {
-            $stmt->bind_result(	$UserID, $UserName, $Passwd, $FirstName, $LastName, $Rank, $Unit, $Email, $PhoneNumber, $PASCode);
+            $stmt->bind_result(	$UserID, $UserName, $Passwd, $FirstName, $LastName, $Rank, $Unit, $Email, $PhoneNumber, $PASCode, $Majcom);
             $returnData = array();
             
             $stmt->fetch();

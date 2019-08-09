@@ -40,7 +40,7 @@
                 <label class="w3-text-black"><br><b>Name:<br></b></label>
                 <div class="w3-text-white"><b><?php echo $data['FirstName'];?></b><b> </b><b><?php echo $data['LastName'];?></b></div>
                 <label class="w3-text-black"><br><b>Rank:<br></b></label>
-                <div class="w3-text-white"><b><?php echo 'E-' . $data['Rank'];?></b></div>
+                <div class="w3-text-white"><b><?php echo $data['Rank'];?></b></div>
                 <label class="w3-text-black"><br><b>Email:<br></b></label>
                 <div class="w3-text-white"><b><?php echo $data['Email'];?></b></div>
                 <label class="w3-text-black"><br><b>Unit:<br></b></label>

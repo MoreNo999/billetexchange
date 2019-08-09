@@ -24,6 +24,7 @@
   justify-content: center;
   margin: 30px;
   text-align: center;
+  padding: 20px;
 }
 .myform{
   background-color: grey;

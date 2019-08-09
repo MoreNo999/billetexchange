@@ -508,7 +508,6 @@ function ChangePassword($pPostData){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
     $data = GetSessionUserProfileData();
-    echo password_verify($pPostData['oldPassword'], $data['Passwd']);
     if (password_verify($pPostData['oldPassword'], $data['Passwd'])){
         if ($stmt = $con->prepare("UPDATE Accounts SET Passwd=? WHERE UserID=?")) {
             // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"

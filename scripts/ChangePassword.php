@@ -10,11 +10,11 @@ if (!isset($_POST['oldPassword'], $_POST['newPassword'])) {
 if (ChangePassword($_POST)){
     //Handle Success
     $_SESSION['errorMessage'] = 'Account Updated!';
-    //header('Location: ../index.php');
+    header('Location: ../index.php');
 }
 else{
     //Handle Failure
     $_SESSION['errorMessage'] = 'Account Update Failed!';
-    //header('Location: ../index.php');
+    header('Location: ../index.php');
 }
 ?>

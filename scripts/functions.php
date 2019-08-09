@@ -545,6 +545,7 @@ function ChangePassword($pPostData){
     }
 }
 
+
 //Options will be both the value and text.
 function CreateOptionList($pOptions, $pDefault, $pClass = null, $pName = null, $pID = null, $pStyle = null, $pOnChange = null){
     $data = "<select ";
@@ -573,5 +574,7 @@ function CreateOptionList($pOptions, $pDefault, $pClass = null, $pName = null, $
             $data .= '<option value="' . $option . '">' . $option . '</option>';
         }
     }
+    $data .= "</select>";
+    return $data;
 }
 ?>

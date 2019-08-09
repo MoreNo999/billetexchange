@@ -415,6 +415,7 @@ function ListifyPost($data){
         $outputVar .= "</table>";
         $outputVar .= "<a href='./view_post.php?Card=" . $entry["ID"] . "'><button class='button'><span>View Post</span></button></a>";
         if ($entry["OwnerID"] == $_SESSION['id']){
+            $outputVar .= "<a href='./edit_billet.php?postid=" . $entry["ID"] . "'><button class='button'><span>Edit Post</span></button></a>";
             $outputVar .= "<a href='./scripts/DeletePost.php?PostID=" . $entry["ID"] . "'><button class='button'><span>Delete Post</span></button></a>";
         }
         echo $outputVar .'</div>';

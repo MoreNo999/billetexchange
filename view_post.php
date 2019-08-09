@@ -66,7 +66,7 @@
             <div class="w3-button w3-blue w3-mobile"><b><a href=home.php>Go Back To Dashboard</b></div>
         </div>
     </div>
-        
+
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");
     ?>

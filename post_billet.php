@@ -29,8 +29,9 @@
   background-color: grey;
   padding: 5px;
   border-radius: 8px;
-  
+
 }
+
 </style>
 
 
@@ -107,6 +108,14 @@
 
                     <label class="w3-text-black"><b>Position #</b></label>
                     <input class="w3-input w3-border w3-light-grey" type="text" name="PositionNumber" id="PositionNumber">
+
+                    <label class="w3-text-black"><b>MAJCOM</b></label>
+                    <select class="w3-select" name="MAJCOM" id="majcom">
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="ANY">ANY</option>
+							<option value="<?php echo $_SESSION['majcom']; ?>"> <?php echo $_SESSION['majcom']; ?></option>
+
+					</select>
 
                     <label class="w3-text-black"><b>Description</b></label>
                     <input class="w3-input w3-border w3-light-grey" type="text" name="Description" id="Description"><br>

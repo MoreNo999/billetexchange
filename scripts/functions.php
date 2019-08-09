@@ -380,26 +380,27 @@ function CardifyPost($data, $columns =3){
 }
 
 function ListifyPost($data){
-    echo '<div>';
+    echo "<div class='posts'> \n";
     $outputvar = "";
     foreach($data as $entry){
-        $outputVar .= "Position #: <mark class='data'>" . $entry["PositionNumber"] . " | ";
-        $outputVar .= "Timestamp: <mark class='data'>" . $entry["DatePosted"] . " | ";
-        $outputVar .= "Out AFSC: <mark class='data'>" . $entry["OutAFSC"] . " | ";
-        $outputVar .= "In AFSC: <mark class='data'>" . $entry["InAFSC"] . " | ";
-        $outputVar .= "Out Rank: <mark class='data'>" . $entry["OutRank"] . " | ";
-        $outputVar .= "In Rank: <mark class='data'>" . $entry["InRank"] . " | ";
-        $outputVar .= "Out SEI: <mark class='data'>" . $entry["OutSEI"] . " | ";
-        $outputVar .= "In SEI: <mark class='data'>" . $entry["InSEI"] . " | ";
-        $outputVar .= "Out Level: <mark class='data'>" . $entry["OutSkillLevel"] . " | ";
-        $outputVar .= "In Level: <mark class='data'>" . $entry["InSkillLevel"] . " | ";
+        echo "<div class='post'>";
+        $outputVar .= "<p1>Position #: </p1><mark class='data'>" . $entry["PositionNumber"] . "</mark>\r\n";
+        $outputVar .= "<p1>Timestamp: </p1><mark class='data'>" . $entry["DatePosted"] . "</mark>\r\n";
+        $outputVar .= "<p1>Out AFSC: </p1><mark class='data'>" . $entry["OutAFSC"] . "</mark>\r\n";
+        $outputVar .= "<p1>In AFSC: </p1><mark class='data'>" . $entry["InAFSC"] . "</mark>\r\n";
+        $outputVar .= "<p1>Out Rank: </p1><mark class='data'>" . $entry["OutRank"] . "</mark>\r\n";
+        $outputVar .= "<p1>In Rank: </p1><mark class='data'>" . $entry["InRank"] . "</mark>\r\n";
+        $outputVar .= "<p1>Out SEI: </p1><mark class='data'>" . $entry["OutSEI"] . "</mark>\r\n";
+        $outputVar .= "<p1>In SEI: </p1><mark class='data'>" . $entry["InSEI"] . "</mark>\r\n";
+        $outputVar .= "<p1>Out Level: </p1><mark class='data'>" . $entry["OutSkillLevel"] . "</mark>\r\n";
+        $outputVar .= "<p1>In Level: </p1><mark class='data'>" . $entry["InSkillLevel"] . "</mark>\r\n";
         $outputVar .= "<a href='./view_post.php?Card=" . $entry["ID"] . "'><button class='button'><span>View Post</span></button></a>";
         if ($entry["OwnerID"] == $_SESSION['id']){
             $outputVar .= "<a href='./scripts/DeletePost.php?PostID=" . $entry["ID"] . "'><button class='button'><span>Delete Post</span></button></a>";
         }
-        $outputVar .= "</br>";
+        echo $outputVar .'</div>';
     }
-    echo '<div class="w3-round-xlarge w3-animate-zoom card"><p>' . $outputVar .'</p></div></div>';
+    echo '</div>';
     //echo $outputVar;
 
 }

@@ -25,9 +25,9 @@
               </div> 
               <div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none;right:0;" id="rightMenu">
                 <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
-                <a href="#" class="w3-bar-item w3-button">About</a>
-                <a href="#" class="w3-bar-item w3-button">Contact Us</a>
-                <a href="#" class="w3-bar-item w3-button">Support</a>
+                <a href="../../about.php" class="w3-bar-item w3-button">About</a>
+                <a href="../../contact-us.php" class="w3-bar-item w3-button">Contact Us</a>
+                <a href="../../support.php" class="w3-bar-item w3-button">Support</a>
               </div>
               
               <div class="w3-blue" style="transform: translateY(-18%);">

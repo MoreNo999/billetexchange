@@ -19,7 +19,7 @@
             <h2>Dashboard</h2>
         </div>
         </div>
-        <?php GetDashboardCards(3); ?>
+        <?php GetDashboardPostList(); ?>
     
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");

@@ -18,7 +18,7 @@
         <div class="w3-container w3-blue w3-mobile">
             <h2>Browse All</h2>
         </div>
-        <?php GetAllCards(3); ?>
+        <?php GetAllPostList(); ?>
     </div>
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");

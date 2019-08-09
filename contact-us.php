@@ -16,18 +16,11 @@
 <div id="container">
     <div id="content">
         <div class="w3-container w3-blue w3-mobile">
-            <h2>My Matches</h2>
+            <h2>Contact Us</h2>
         </div>
-        <?php
-        $matches = GetMatches();
-        $data = array();
-        foreach ($matches as $one){
-            foreach ($one->b as $aMatch){
-                array_push($data, GetSingleBilletPost($aMatch));
-            } 
-        }
-        ListifyPost($data);
-        ?>
+        <div class="w-3 container w3-mobile">
+        <h3 style="color:white;"> Send an email to gwa2100@gmail.com </h3>
+        </div>
     </div>
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");

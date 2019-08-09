@@ -41,7 +41,7 @@
             <label class="w3-text-black"><br><b>Offered AFSC:<br></b></label>
             <div class="w3-text-white"><b><?php echo $data['OutAFSC'];?></b></div>
             <label class="w3-text-black"><br><b>Offered Rank:<br></b></label>
-            <div class="w3-text-white"><b><?php echo 'E-' . $data['OutRank'];?></b></div>
+            <div class="w3-text-white"><b><?php echo $data['OutRank'];?></b></div>
             <label class="w3-text-black"><br><b>Offered SEI:<br></b></label>
             <div class="w3-text-white"><b><?php echo $data['OutSEI'];?></b></div>
             <label class="w3-text-black"><br><b>Offered Skill Level:<br></b></label>
@@ -49,7 +49,7 @@
             <label class="w3-text-black"><br><b>Requested AFSC:<br></b></label>
             <div class="w3-text-white"><b><?php echo $data['InAFSC'];?></b></div>
             <label class="w3-text-black"><br><b>Requested Rank:<br></b></label>
-            <div class="w3-text-white"><b><?php echo 'E-' . $data['InRank'];?></b></div>
+            <div class="w3-text-white"><b><?php echo $data['InRank'];?></b></div>
             <label class="w3-text-black"><br><b>Requested SEI:<br></b></label>
             <div class="w3-text-white"><b><?php echo $data['InSEI'];?></b></div>
             <label class="w3-text-black"><br><b>Requested Skill Level:<br></b></label>
@@ -60,9 +60,13 @@
             <div class="w3-text-white"><b><?php echo $data['DatePosted'];?></b></div>
             <label class="w3-text-black"><br><b>Position Number:<br></b></label>
             <div class="w3-text-white"><b><?php echo $data['PositionNumber'];?></b><br><br></div>
-            <div class="w3-button w3-blue w3-mobile"><b><a href=view_matches.php?Card=<?php echo $_GET['Card'];?>><?php echo "View Matches";?></b></div>
+            <label class="w3-text-black"><br><b>MAJCOM:<br></b></label>
+            <div class="w3-text-white"><b><?php echo $data['Majcom'];?></b><br><br></div>
+            <div class="w3-button w3-blue w3-mobile"><b><a href=view_matches.php?Card=<?php echo $_GET['Card'];?>>View Matches</b></div>
+            <div class="w3-button w3-blue w3-mobile"><b><a href=home.php>Go Back To Dashboard</b></div>
         </div>
-    </div>     
+    </div>
+
     <?php
         require_once(TEMPLATES_PATH . "/rightPanel.php");
     ?>

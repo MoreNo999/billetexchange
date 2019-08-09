@@ -383,17 +383,29 @@ function ListifyPost($data){
     echo "<div class='posts'> \n";
     foreach($data as $entry){
         echo "<div class='post'>";
-        $outputVar .= "<p1>Position #: </p1><mark class='data'>" . $entry["PositionNumber"] . "</mark>\r\n";
-        $outputVar .= "<p1>Timestamp: </p1><mark class='data'>" . $entry["DatePosted"] . "</mark>\r\n";
-        $outputVar .= "<p1>Out AFSC: </p1><mark class='data'>" . $entry["OutAFSC"] . "</mark>\r\n";
-        $outputVar .= "<p1>In AFSC: </p1><mark class='data'>" . $entry["InAFSC"] . "</mark>\r\n";
-        $outputVar .= "<p1>Out Rank: </p1><mark class='data'>" . $entry["OutRank"] . "</mark>\r\n";
-        $outputVar .= "<p1>In Rank: </p1><mark class='data'>" . $entry["InRank"] . "</mark>\r\n";
-        $outputVar .= "<p1>Out SEI: </p1><mark class='data'>" . $entry["OutSEI"] . "</mark>\r\n";
-        $outputVar .= "<p1>In SEI: </p1><mark class='data'>" . $entry["InSEI"] . "</mark>\r\n";
-        $outputVar .= "<p1>Out Level: </p1><mark class='data'>" . $entry["OutSkillLevel"] . "</mark>\r\n";
-        $outputVar .= "<p1>In Level: </p1><mark class='data'>" . $entry["InSkillLevel"] . "</mark>\r\n";
-        $outputVar .= "<p1>Majcom: </p1><mark class='data'>" . $entry["Majcom"] . "</mark>\r\n<br>";
+        $outputVar .= "<table>\r\n";
+            $outputVar .= "<tr>\r\n";
+
+                $outputVar .= "<th>Out AFSC</th>";
+                $outputVar .= "<th>In AFSC</th>";
+                $outputVar .= "<th>Out Rank</th>";
+                $outputVar .= "<th>In Rank</th>";
+                $outputVar .= "<th>Out Level</th>";
+                $outputVar .= "<th>In Level</th>";
+                $outputVar .= "<th>Majcom</th>";
+
+        $outputVar .= "</tr>\r\n";
+        $outputVar .= "<tr>\r\n";
+                $outputVar .= "<th>" . $entry["OutAFSC"];
+                $outputVar .= "<th>" . $entry["InAFSC"];
+                $outputVar .= "<th>" . $entry["OutRank"];
+                $outputVar .= "<th>" . $entry["InRank"];
+                $outputVar .= "<th>" . $entry["OutSkillLevel"];
+                $outputVar .= "<th>" . $entry["InSkillLevel"];
+                $outputVar .= "<th>" . $entry["Majcom"];
+
+        $outputVar .= "</tr>\r\n";
+        $outputVar .= "</table>";
         $outputVar .= "<a href='./view_post.php?Card=" . $entry["ID"] . "'><button class='button'><span>View Post</span></button></a>";
         if ($entry["OwnerID"] == $_SESSION['id']){
             $outputVar .= "<a href='./scripts/DeletePost.php?PostID=" . $entry["ID"] . "'><button class='button'><span>Delete Post</span></button></a>";

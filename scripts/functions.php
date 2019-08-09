@@ -381,7 +381,6 @@ function CardifyPost($data, $columns =3){
 
 function ListifyPost($data){
     echo "<div class='posts'> \n";
-    $outputvar = "";
     foreach($data as $entry){
         echo "<div class='post'>";
         $outputVar .= "<p1>Position #: </p1><mark class='data'>" . $entry["PositionNumber"] . "</mark>\r\n";
@@ -399,6 +398,7 @@ function ListifyPost($data){
             $outputVar .= "<a href='./scripts/DeletePost.php?PostID=" . $entry["ID"] . "'><button class='button'><span>Delete Post</span></button></a>";
         }
         echo $outputVar .'</div>';
+        $outputVar = "";
     }
     echo '</div>';
     //echo $outputVar;

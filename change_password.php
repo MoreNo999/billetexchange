@@ -31,16 +31,31 @@
   
 }
 </style>
+<script>
+var check = function() {
+	if ((document.getElementById('newPassword').value) ==
+    (document.getElementById('verifyPassword').value) && (document.getElementById('newPassword').value.length>0)) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'Passwords Match';
+	document.getElementById('submit').disabled = false;
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'Passwords DO NOT Match';
+  }
+}
+</script>
         
         
         <div class='box'>
                 <div class='myform w3-animate-zoom'>
                     <form action="./scripts/ChangePassword.php" method="POST">     
-                        <label class="w3-text-black"><br><br><b>Old Password:<br></b></label>
+                        <label class="w3-text-black"><br><b>Old Password:<br></b></label>
                         <input class="w3-input w3-border w3-light-grey" type="password" required placeholder="Enter Old Password" id="oldPassword" name="oldPassword">
                         <label class="w3-text-black"><br><b>New Password:<br></b></label>
-                        <input class="w3-input w3-border w3-light-grey" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters. Please don't write it down under your keyboard :)" required placeholder="Enter New Password" id="newPassword" name="newPassword"><br>
-                        <input class="w3-button w3-blue" type="submit" id="submit" value="Submit New Password">
+                        <input class="w3-input w3-border w3-light-grey" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters. Please don't write it down under your keyboard :)" required placeholder="Enter New Password" id="newPassword" name="newPassword" onkeyup='check();'>
+                        <label class="w3-text-black"><br><b>Verify Password:<br></b></label>
+                        <input class="w3-input w3-border w3-light-grey" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters. Please don't write it down under your keyboard :)" required placeholder="Verify Password" id="verifyPassword" name="verifyPassword" onkeyup='check();'><span id='message'></span><br><br>
+						<input class="w3-button w3-blue" type="submit" id="submit" disabled value="Submit New Password">
                     </form>
                 </div>
                 

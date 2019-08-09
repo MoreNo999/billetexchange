@@ -532,4 +532,34 @@ function ChangePassword($pPostData){
         return False;
     }
 }
+
+//Options will be both the value and text.
+function CreateOptionList($pOptions, $pDefault, $pClass = null, $pName = null, $pID = null, $pStyle = null, $pOnChange = null){
+    $data = "<select ";
+    if (isset($pClass)){
+        $data .= 'class="' . $pClass . '" ';
+    }
+    if (isset($pName)){
+        $data .= 'name="' . $pName . '" ';
+    }
+    if (isset($pID)){
+        $data .= 'id="' . $pID . '" ';
+    }
+    if (isset($pStyle)){
+        $data .= 'style="' . $pStyle . '" ';
+    }
+    if (isset($pOnChange)){
+        $data .= 'onchange="' . $pOnChange . '" ';
+    }
+
+    $data .= ">";
+    foreach ($pOptions as $option){
+        if ($option == $pDefault){
+            $data .= '<option value="' . $option . '" selected>' . $option . '</option>';
+        }
+        else{
+            $data .= '<option value="' . $option . '">' . $option . '</option>';
+        }
+    }
+}
 ?>

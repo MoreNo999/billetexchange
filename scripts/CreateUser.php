@@ -22,20 +22,21 @@ if ($stmt = $con->prepare('SELECT UserID FROM Accounts WHERE Username = ?')) {
     }
     else {
         //Prepare our sql statement, nullify SQL Injection
-        if ($stmt = $con->prepare("INSERT INTO Accounts(Username, Passwd, Email, Unit, PhoneNumber) VALUES (?, ?, ?, ?, ?)")) {
+        if ($stmt = $con->prepare("INSERT INTO Accounts(Username, Passwd, FirstName, LastName, Rank, Unit,  Email, PhoneNumber, Majcom) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
             $password = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-            if (isset($_POST['phone'])){
-                $_SESSION['errorMessage'] = 'P=Y';
-                $stmt->bind_param('sssss', htmlspecialchars($_POST['user'], ENT_NOQUOTES), $password, htmlspecialchars($_POST['email'],ENT_NOQUOTES), htmlspecialchars($_POST['unit'], ENT_NOQUOTES), htmlspecialchars($_POST['phone'], ENT_NOQUOTES));
+            $_SESSION['errorMessage'] = 'P=Y';
+            $stmt->bind_param('sssssssss', htmlspecialchars($_POST['user'], ENT_NOQUOTES), $password, htmlspecialchars($_POST['firstname'],ENT_NOQUOTES), htmlspecialchars($_POST['lastname'], ENT_NOQUOTES), htmlspecialchars($_POST['rank'],ENT_NOQUOTES), htmlspecialchars($_POST['unit'],ENT_NOQUOTES),htmlspecialchars($_POST['email'],ENT_NOQUOTES), htmlspecialchars($_POST['phone'], ENT_NOQUOTES), htmlspecialchars($_POST['majcom'],ENT_NOQUOTES));
+            if ($stmt->execute()){
+                $_SESSION['errorMessage'] = 'Account Created!';
+                $stmt->close();
+                header('Location: ../index.php');
             }
             else {
-                $stmt->bind_param('sssss', htmlspecialchars($_POST['user'], ENT_NOQUOTES), $password, htmlspecialchars($_POST['email'],ENT_NOQUOTES), htmlspecialchars($_POST['unit'], ENT_NOQUOTES), "empty");
+                $_SESSION['errorMessage'] = 'Account Creation Failed!';
+                $stmt->close();
+                header('Location: ../index.php');
             }
-            $stmt->execute();
-            $_SESSION['errorMessage'] = 'Account Created!';
-            header('Location: ../index.php');
-            $stmt->close();
         }
         else{
             $_SESSION['errorMessage'] = 'Account Creation Failed!';

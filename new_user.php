@@ -68,9 +68,37 @@ body {
   <input class="form-control" type="text" id="email" name="email" required placeholder="Enter Email Address" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title=" user@example.mil">  
   <label for="unit" class="sr-only">Unit</label>
   <input class="form-control" type="text" id="unit" name="unit" minlength=3 maxlength=20 title="minimum length of 3 and a maximum of 40" required placeholder="Enter Unit">
-  <label for="phone" class="sr-only">Phone number (optional)</label>
+  <label for="phone" class="sr-only">Phone number</label>
   <script src="js/phone_complete.js"></script>
+  <input class="w3-input w3-border w3-light-grey" id="firstname" name="firstname" placeholder="First Name">
+  <input class="w3-input w3-border w3-light-grey" id="lastname" name="lastname" placeholder="Last Name"></br>
   <input class="form-control" type="text" id="phone" name="phone" pattern="\([0-9]{3}\)[0-9]{3}-[0-9]{4}" placeholder="Format: (123)456-7890" title="Format: (123)456-7890" onkeydown="javascript:backspacerDOWN(this,event);" onkeyup="javascript:backspacerUP(this,event);"><br><br>  
+  <label class="w3-text-black">Rank:
+  <select class="w3-select w3-light-grey w3-border" style="text-align: center" id="rank" name="rank" placeholder="RANK">
+    <option value="E-1">E-1</option>
+    <option value="E-2">E-2</option>
+    <option value="E-3">E-3</option>
+    <option value="E-4">E-4</option>
+    <option value="E-5">E-5</option>
+    <option value="E-6">E-6</option>
+    <option value="E-7">E-7</option>
+    <option value="E-8">E-8</option>
+    <option value="E-9">E-9</option>
+  </select></label>
+  <label class="w3-text-black"><br><b>MAJCOM:<br></b></label>
+  <select class="w3-select w3-light-grey w3-border" style="text-align: center" id="majcom" name="majcom" placeholder="MAJCOM">
+  <option value="ACC">ACC</option>
+    <option value="AETC">AETC</option>
+    <option value="AFGSC">AFGSC</option>
+    <option value="AFMC">AFMC</option>
+    <option value="AFSPC">AFSPC</option>
+    <option value="AMC">AMC</option>
+    <option value="AFSOC">AFSOC</option>
+    <option value="PACAF">PACAF</option>
+    <option value="USAFE">USAFE</option>
+    <option value="Other">Other</option>
+  </select>
+
   <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
 </form>
 

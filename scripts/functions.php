@@ -399,8 +399,9 @@ function ListifyPost($data){
         }
         $outputVar .= "</br>";
     }
-    echo '<div class="w3-round-xlarge w3-animate-zoom card"><p>' . $outputVar .'</p></div>';
+    echo '<div class="w3-round-xlarge w3-animate-zoom card"><p>' . $outputVar .'</p></div></div>';
     //echo $outputVar;
+
 }
 
 function GetAllPostList(){

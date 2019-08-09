@@ -393,6 +393,7 @@ function ListifyPost($data){
         $outputVar .= "<p1>In SEI: </p1><mark class='data'>" . $entry["InSEI"] . "</mark>\r\n";
         $outputVar .= "<p1>Out Level: </p1><mark class='data'>" . $entry["OutSkillLevel"] . "</mark>\r\n";
         $outputVar .= "<p1>In Level: </p1><mark class='data'>" . $entry["InSkillLevel"] . "</mark>\r\n";
+        $outputVar .= "<p1>Majcom: </p1><mark class='data'>" . $entry["Majcom"] . "</mark>\r\n";
         $outputVar .= "<a href='./view_post.php?Card=" . $entry["ID"] . "'><button class='button'><span>View Post</span></button></a>";
         if ($entry["OwnerID"] == $_SESSION['id']){
             $outputVar .= "<a href='./scripts/DeletePost.php?PostID=" . $entry["ID"] . "'><button class='button'><span>Delete Post</span></button></a>";

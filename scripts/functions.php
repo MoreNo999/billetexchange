@@ -295,7 +295,7 @@ function GetSessionUserProfileData(){
     $stmt->close();
 }
 
-//Expects postdata to be sent by parameter for use.  Doesnt Update Password or Username.
+//Expects postdata to be sent by parameter for use.  Doesnt Update Password or Username.mmmmm
 function UpdateSessionUserProfileData($pPostData){
     $conMan = new SQLConnectionManager();
     $con = $conMan->StartConnection();
@@ -308,7 +308,7 @@ function UpdateSessionUserProfileData($pPostData){
     if ($stmt = $con->prepare("UPDATE Accounts SET Email=?, Unit=?, PhoneNumber=?, FirstName=?, LastName=?, Rank=?, PASCode=?, Majcom=? WHERE UserID=?")) {
         // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 
-        $stmt->bind_param('ssssssiis', htmlspecialchars($pPostData['email'], ENT_NOQUOTES), htmlspecialchars($pPostData['unit'], ENT_NOQUOTES), htmlspecialchars($pPostData['phone'], ENT_NOQUOTES), htmlspecialchars($pPostData['firstName'], ENT_NOQUOTES), htmlspecialchars($pPostData['lastName'], ENT_NOQUOTES), $pPostData['rank'], htmlspecialchars($pPostData['PASCode'], ENT_NOQUOTES), htmlspecialchars($pPostData['Majcom'], ENT_NOQUOTES), $_SESSION['id']);
+        $stmt->bind_param('ssssssssi', htmlspecialchars($pPostData['email'], ENT_NOQUOTES), htmlspecialchars($pPostData['unit'], ENT_NOQUOTES), htmlspecialchars($pPostData['phone'], ENT_NOQUOTES), htmlspecialchars($pPostData['firstName'], ENT_NOQUOTES), htmlspecialchars($pPostData['lastName'], ENT_NOQUOTES), $pPostData['rank'], htmlspecialchars($pPostData['PASCode'], ENT_NOQUOTES), htmlspecialchars($pPostData['Majcom'], ENT_NOQUOTES), $_SESSION['id']);
 
         if ($stmt->execute()){
             return True;
@@ -498,10 +498,10 @@ function GetUserPublicDataFromID($userID){
         // Store the result so we can check if the account exists in the database.
         $stmt->store_result();
         if ($stmt->num_rows != 0) {
-            $stmt->bind_result(	$UserID, $UserName, $Passwd, $FirstName, $LastName, $Rank, $Unit, $Email, $PhoneNumber, $PASCode);
+            $stmt->bind_result(	$UserID, $UserName, $Passwd, $FirstName, $LastName, $Rank, $Unit, $Email, $PhoneNumber, $PASCode, $Majcom);
             
             $stmt->fetch();
-            $returnData = array( 'UserID'=>$UserID, 'UserName'=>$UserName, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'Rank'=>$Rank, 'Email'=>$Email, 'PhoneNumber'=>$PhoneNumber, 'Unit'=>$Unit);
+            $returnData = array( 'UserID'=>$UserID, 'UserName'=>$UserName, 'FirstName'=>$FirstName, 'LastName'=>$LastName, 'Rank'=>$Rank, 'Email'=>$Email, 'PhoneNumber'=>$PhoneNumber, 'Unit'=>$Unit, 'Majcom'=>$Majcom);
             
             // Account exists, now we verify the password.
             // Note: remember to use password_hash in your registration file to store the hashed passwords.

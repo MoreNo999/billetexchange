@@ -60,6 +60,8 @@
             <div class="w3-text-white"><b><?php echo $data['DatePosted'];?></b></div>
             <label class="w3-text-black"><br><b>Position Number:<br></b></label>
             <div class="w3-text-white"><b><?php echo $data['PositionNumber'];?></b><br><br></div>
+            <label class="w3-text-black"><br><b>MAJCOM:<br></b></label>
+            <div class="w3-text-white"><b><?php echo $data['Majcom'];?></b><br><br></div>
             <div class="w3-button w3-blue w3-mobile"><b><a href=view_matches.php?Card=<?php echo $_GET['Card'];?>>View Matches</b></div>
             <div class="w3-button w3-blue w3-mobile"><b><a href=home.php>Go Back To Dashboard</b></div>
         </div>

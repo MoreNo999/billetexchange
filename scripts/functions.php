@@ -69,12 +69,12 @@ function GetBilletPosts($userid, $number = 5, $first = 0, $status = 1, $days = -
     // Store the result so we can check if the account exists in the database.
     $stmt->store_result();
     if ($stmt->num_rows > 0 and $stmt->num_rows > $first ) {
-        $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+        $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status, $Majcom);
         $returnData = array();
         $iterator = 0;
         while ($stmt->fetch() and $iterator < $number + $first){
             if ($iterator >= $first){
-                array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
+                array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status, "Majcom"=>$Majcom));
             }
             ++$iterator;
         }
@@ -114,12 +114,12 @@ function GetAllBilletPosts($number = 5, $first = 0, $status = 1, $days = -1){
     // Store the result so we can check if the account exists in the database.
     $stmt->store_result();
     if ($stmt->num_rows > 0 and $stmt->num_rows > $first ) {
-        $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+        $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status, $Majcom);
         $returnData = array();
         $iterator = 0;
         while ($stmt->fetch() and $iterator < $number + $first){
             if ($iterator >= $first){
-                array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
+                array_push($returnData, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status, "Majcom"=>$Majcom));
             }
             ++$iterator;
         }
@@ -147,9 +147,9 @@ function GetSingleBilletPost($id){
         // Store the result so we can check if the account exists in the database.
         $stmt->store_result();
         if ($stmt->num_rows > 0 ) {
-            $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+            $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status, $Majcom);
             $stmt->fetch();
-            $returnData = array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status);
+            $returnData = array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status, "Majcom"=>$Majcom);
             // WE now have the post, lets return it.
             return $returnData;
         } 
@@ -202,11 +202,11 @@ function GetMatches(){
         // Store the results so we can process them.
         $stmt->store_result();
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+            $stmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status, $Majcom);
             $allUsersPosts = array();
             
             while ($stmt->fetch()){
-                    array_push($allUsersPosts, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status));
+                    array_push($allUsersPosts, array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status, "Majcom"=>$Majcom));
             }
             //We now have the data, need to run over it and find matches.  This may be expensive :S
             //Currently only matching AFSC Rank SkillLevel
@@ -216,16 +216,16 @@ function GetMatches(){
             //iterate over all of the posts as matcher.
             foreach($allUsersPosts as $post){
                 //We have a list of the posts made by this user.  Now we check for any that match what we want on the SQL Server.
-                if ($searchStmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = 1 and OutAFSC = ? and InAFSC = ? and OutRank = ? and InRank = ? and OutSkillLevel = ? and InSkillLevel = ?')) {
+                if ($searchStmt = $con->prepare('SELECT * FROM BilletEntry WHERE Status = 1 and OutAFSC = ? and InAFSC = ? and OutRank = ? and InRank = ? and OutSkillLevel = ? and InSkillLevel = ? and (Majcom=? or Majcom="Any")')) {
                     // Bind parameters (s = string, i = int, b = blob, etc)
                     //The variables will line up as opposites of the where statement, as we are trying to find a possible match.  InAFSC - OutAFSC.
                     //echo $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel'];
-                    $searchStmt->bind_param('ssssii', $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel']);
+                    $searchStmt->bind_param('ssssiis', $post['InAFSC'], $post['OutAFSC'], $post['InRank'], $post['OutRank'], $post['InSkillLevel'], $post['OutSkillLevel'], $post['Majcom']);
                     if ($searchStmt->execute()){
                         // Store the results so we can process them.
                         $searchStmt->store_result();
                         if ($searchStmt->num_rows > 0) {
-                            $searchStmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status);
+                            $searchStmt->bind_result(	$ID, $OwnerID,$OutAFSC, $OutRank, $OutSEI, $OutSkillLevel, $InAFSC, $InRank, $InSEI, $InSkillLevel, $PositionNumber, $Description, $DatePosted, $Views, $Clicks, $Status, $Majcom);
                             while ($searchStmt->fetch()){
                                 //For this we are changing from taking all the data, and just grabbing the found ID number of the match.
                                 //$foundData = array( "ID"=>$ID, "OwnerID"=>$OwnerID, "OutAFSC"=>$OutAFSC, "OutRank"=>$OutRank, "OutSEI"=>$OutSEI, "OutSkillLevel"=>$OutSkillLevel, "InAFSC"=>$InAFSC, "InRank"=>$InRank, "InSEI"=>$InSEI, "InSkillLevel"=>$InSkillLevel, "PositionNumber"=>$PositionNumber, "Description"=>$Description, "DatePosted"=>$DatePosted, "Views"=>$Views, "Clicks"=>$Clicks, "Status"=>$Status);
@@ -305,10 +305,10 @@ function UpdateSessionUserProfileData($pPostData){
     }
 
     //Prepare our sql statement, nullify SQL Injection
-    if ($stmt = $con->prepare("UPDATE Accounts SET Email=?, Unit=?, PhoneNumber=?, FirstName=?, LastName=?, Rank=?, PASCode=? WHERE UserID=?")) {
+    if ($stmt = $con->prepare("UPDATE Accounts SET Email=?, Unit=?, PhoneNumber=?, FirstName=?, LastName=?, Rank=?, PASCode=?, Majcom=? WHERE UserID=?")) {
         // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 
-        $stmt->bind_param('ssssssii', htmlspecialchars($pPostData['email'], ENT_NOQUOTES), htmlspecialchars($pPostData['unit'], ENT_NOQUOTES), htmlspecialchars($pPostData['phone'], ENT_NOQUOTES), htmlspecialchars($pPostData['firstName'], ENT_NOQUOTES), htmlspecialchars($pPostData['lastName'], ENT_NOQUOTES), $pPostData['rank'], htmlspecialchars($pPostData['PASCode'], ENT_NOQUOTES), $_SESSION['id']);
+        $stmt->bind_param('ssssssiis', htmlspecialchars($pPostData['email'], ENT_NOQUOTES), htmlspecialchars($pPostData['unit'], ENT_NOQUOTES), htmlspecialchars($pPostData['phone'], ENT_NOQUOTES), htmlspecialchars($pPostData['firstName'], ENT_NOQUOTES), htmlspecialchars($pPostData['lastName'], ENT_NOQUOTES), $pPostData['rank'], htmlspecialchars($pPostData['PASCode'], ENT_NOQUOTES), $_SESSION['id'], htmlspecialchars($pPostData['Majcom'], ENT_NOQUOTES));
 
         if ($stmt->execute()){
             return True;
